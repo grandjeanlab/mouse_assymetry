@@ -1,0 +1,50 @@
+---
+title: "Preregistration statistics"
+output: github_document
+author: "Joanes Grandjean"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# mostly not needed now, but always useful to have in the future. 
+require(tidyverse)
+require(lme4)
+require(multcomp)
+```
+
+
+The purpose of this document is to test different statistical approaches we want to deploy to test our hypotheses. Specifically, we want to test for differences in variance between groups within the framework a linear mixed model. 
+
+```{r generate datasets}
+n<-15
+a<-rnorm(n,mean=0, sd=1)
+b<-rnorm(n, mean=0, sd=2.5)
+label<-as_factor(c(rep('a',n),rep('b',n)))
+
+df_simple<-tibble(y=c(a,b), label=label)
+
+```
+
+
+```{r testing simple f-test}
+# simple test for variance. 
+var.test(y~label,df_simple)
+```
+```{r testing embedding in a linear model}
+#fit the model
+mod<-lm(y~label, df_simple)
+
+# extract the residuals
+res_mod <- mod$residuals
+res_label<- mod$model$label
+
+# test for difference in variance in the residuals.
+var.test(res_mod~res_label)
+
+```
+
+
+
