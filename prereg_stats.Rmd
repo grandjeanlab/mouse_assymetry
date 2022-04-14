@@ -18,7 +18,7 @@ require(multcomp)
 
 The purpose of this document is to test different statistical approaches we want to deploy to test our hypotheses. Specifically, we want to test for differences in variance between groups within the framework a linear mixed model. 
 
-```{r generate datasets}
+```{r generate simple datasets}
 n<-15
 a<-rnorm(n,mean=0, sd=1)
 b<-rnorm(n, mean=0, sd=2.5)
@@ -38,8 +38,8 @@ var.test(y~label,df_simple)
 mod<-lm(y~label, df_simple)
 
 # extract the residuals
-res_mod <- mod$residuals
-res_label<- mod$model$label
+res_mod <- residuals(mod)
+res_label<- df_fixed2$label
 
 # test for difference in variance in the residuals.
 var.test(res_mod~res_label)
@@ -47,4 +47,54 @@ var.test(res_mod~res_label)
 ```
 
 
+```{r generate fixed-effect datasets}
+n<-30
+sex_effect<-0.1
+sex_effect_sd<-0.1
+a<-rnorm(n,mean=0, sd=1)
+b<-rnorm(n, mean=0, sd=2.5)
+label<-as_factor(c(rep('a',n),rep('b',n)))
+sex<-sample(c('m','f'),2*n,replace=TRUE)
+
+df_fixed<-tibble(y=c(a,b), label=label, sex=sex)
+
+# add a differential effect for sex
+df_fixed2<- df_fixed %>% mutate(y = case_when(sex=='m' ~ y+rnorm(length(.$sex=='m'),sex_effect,sex_effect_sd),
+                                             sex=='f' ~ y-rnorm(length(.$sex=='f'),sex_effect,sex_effect_sd)))
+
+```
+
+```{r testing embedding in a linear model}
+#fit the model
+mod<-lm(y~label+sex, df_fixed2)
+
+# extract the residuals
+res_mod <- residuals(mod)
+res_label<- df_fixed2$label
+
+# test for difference in variance in the residuals.
+var.test(res_mod~res_label)
+
+```
+
+
+```{r testing embedding in a linear mixed model}
+#fit the model
+mod<-lmer(y~label+(1|sex), df_fixed2)
+
+# extract the residuals
+res_mod <- residuals(mod)
+res_label<- df_fixed2$label
+
+# test for difference in variance in the residuals.
+var.test(res_mod~res_label)
+
+```
+```{r using contrast analysis for mean differences}
+#estimate contrasts for fixed effect of interest
+con<-estimate_contrasts(mod, contrast = 'label')
+#convert it to cohen's d
+t_to_d(con$t,con$df)
+
+```
 
