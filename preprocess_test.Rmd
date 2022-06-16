@@ -1,0 +1,54 @@
+---
+title: "Test preprocessing"
+output: github_document
+author: "Joanes Grandjean"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r install packages}
+devtools::install_github("Mouse-Imaging-Centre/RMINC"
+                       , upgrade_dependencies = FALSE)
+```
+
+# get additional assets
+get template from  http://repo.mouseimaging.ca/repo/DSURQE_40micron/
+sudo apt install libhdf5-dev
+
+```{r import libraries}
+library(tidyverse)
+library(glue)
+library(RMINC)
+```
+
+```{r set global variables}
+data_dir<-'/home/gjoanes/work/asym/data'
+mask_file<-'/home/gjoanes/work/asym/template/DSURQE_40micron_mask.mnc'
+label_file<-'/home/gjoanes/work/asym/template/DSURQE_40micron_labels.mnc'
+roi_file<-'/home/gjoanes/work/asym/template/DSURQE_40micron_R_mapping.csv'
+study_file<-'/home/gjoanes/work/asym/tabledata_4480e65c-d04c-498a-b4b5-7dabbfbed709.csv'
+
+
+mask <- mincGetVolume(mask_file) |> mincArray(3)
+label <- mincGetVolume(label_file) |>  mincArray(3)
+roi<-read_csv(roi_file)
+study<-read_csv(study_file)
+
+```
+
+
+```{r test plot}
+mincImage(mask, slice=100, col=gray.colors(255))
+mincImage(label, slice=100, underTransparent = TRUE,col=rainbow(255))
+```
+
+```{r read jacobian}
+
+jac<- mincGetVolume('/home/gjoanes/work/asym/data/PND54_HSC_0020_01_SE01_MR/scans/MR_MINC-mice_ex_vivo_fixedbrain_32um_longesp/resources/Scan_To_Global_Relative_Jacobians/files/img_21may10.1.november_2007_distortion_corrected-final-nlin_with_additional_inverted_pure_nlin_relative_log_determinant_fwhm0.2_common.mnc') |> mincArray(3)
+dim(jac)
+mincImage(jac, slice=200, col=gray.colors(255))
+```
+
