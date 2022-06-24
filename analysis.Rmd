@@ -60,14 +60,14 @@ report(roi_merge)
 study <- read_csv('asset/study_stable.csv')
 roi_merge <- read_csv('asset/roi_label_clean.csv')
 
-data_path <- 'sample_test/'
+data_path <- '/project/4180000.24/asym/proc/absolute/'
 
 ```
 
 ```{r list missing data}
 
 vol_AI_list <- file.path(data_path,'vol_AI') %>% dir  %>% gsub("_01_SE01_MR.nii.gz","",.)
-study$POND_Mouse_ID[which(!study$POND_Mouse_ID %in% vol_AI_list)]
+study$POND_Mouse_ID[which(!study$POND_Mouse_ID %in% vol_AI_list)] %>% as_tibble() %>%  write_csv('asset/missing.csv')
 
 ```
 
