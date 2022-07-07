@@ -1,5 +1,5 @@
 ---
-title: "analysis mouse assymetry"
+title: "analysis mouse asymetry"
 output: github_document
 author: "Joanes Grandjean
 ---
@@ -11,91 +11,148 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r load libraries}
 #tidy stuff
-library(tidyverse)
-library(glue)
-
-#linear mixed model
-library(lme4)
+library(tidyverse,warn.conflicts = FALSE)
+library(glue,warn.conflicts = FALSE)
 
 #easystat
+library(datawizard,warn.conflicts = FALSE)
 library(effectsize)
-library(parameters)
-library(performance)
-library(modelbased)
 library(report)
 ```
 
 
-
-# asset preparation and validation. 
-the exisiting DSURQE label info is not very clear. Here I reshape it for better visualization.
-
-```{r reshape the DSURQE label index}
-roi_raw <- read_csv('asset/DSURQE_40micron_R_mapping.csv')
-
-
-roi_merge <- tibble(dsurqe_struct=c(glue('Right {roi_raw$Structure}'),glue('Left {roi_raw$Structure}')), 
-                   abi_struct=c(glue('Right {roi_raw$ABI}'),glue('Left {roi_raw$ABI}')), 
-                   tissue=c(roi_raw$`tissue type`, roi_raw$`tissue type`), 
-                   label=c(roi_raw$`right label`, roi_raw$`left label`),
-                   hemisphere=c(rep('right', dim(roi_raw)[1]), rep('left', dim(roi_raw)[1]))) %>% arrange(label)
-
-duplicated_index <- duplicated(roi_merge$label)
-duplicated_label <- roi_merge$label[duplicated_index]
-
-roi_merge<-roi_merge[!duplicated_index,]
-
-roi_merge$hemisphere[roi_merge$label %in% duplicated_label] <- 'inter'
-
-
-write_csv(roi_merge, 'asset/roi_label_clean.csv')
-
-
-report(roi_merge)
-```
-
-
+## load main assets
 ```{r load global variables}
 
-study <- read_csv('asset/study_stable.csv')
-roi_merge <- read_csv('asset/roi_label_clean.csv')
+study <-
+  read_csv('asset/study_stable.csv', col_types = cols()) %>% select(
+    Mouse_ID,
+    POND_Mouse_ID,
+    Study_Name,
+    Is_Wildtype,
+    Genotype,
+    MGI_Genotype,
+    Background,
+    MGI_Background,
+    Mouse_Weight,
+    Mouse_Age,
+    Mouse_Sex,
+    Scan_Type,
+    Scan_Coil,
+    Scan_Date,
+    Scan_Operator,
+    Isotropic_Voxel_Resolution
+  ) %>% mutate(Mouse_Age = replace(Mouse_Age, Mouse_Age == "(Empty)", "P040")) %>% 
+        mutate(Mouse_Age = gsub("P", '', .$Mouse_Age)) %>% 
+        mutate(Mouse_Age = replace(Mouse_Age, Mouse_Age == "058-062", "060")) %>% 
+        mutate(Mouse_Age = replace(Mouse_Age, Mouse_Age == "070-077", "073")) %>% 
+        mutate(Mouse_Age = replace(Mouse_Age, Mouse_Age == "224-245", "235")) %>% 
+        mutate(Mouse_Age = replace(Mouse_Age, Mouse_Age == "098-168", "133")) %>% 
+        mutate(Mouse_Age = replace(Mouse_Age, Mouse_Age == "154-161", "157")) %>% 
+        mutate(Mouse_Age =as.numeric(.$Mouse_Age)) %>% 
+        mutate(Genotype = as_factor(Genotype)) %>% 
+        mutate(Mouse_Sex = as_factor(Mouse_Sex)) %>% mutate(Is_Wildtype = as_factor(Is_Wildtype)) %>% 
+        mutate(Background = as_factor(Background))
+
+roi_merge <-
+  read_csv('asset/roi_label_clean.csv', col_types = cols())
 
 data_path <- '/project/4180000.24/asym/proc/absolute/'
 
-```
-
-```{r list missing data}
-
-vol_AI_list <- file.path(data_path,'vol_AI') %>% dir  %>% gsub("_01_SE01_MR.nii.gz","",.)
-study$POND_Mouse_ID[which(!study$POND_Mouse_ID %in% vol_AI_list)] %>% as_tibble() %>%  write_csv('asset/missing.csv')
 
 ```
 
 
 
+## load AI per ROI
 
-```{r}
-label_extract <- read_table('asset/label_extract',col_names = FALSE) %>%  pivot_longer(everything()) %>%  select(value) %>% .$value
-roi_extra_orig <- read_table('sample_test/roi_orig/PND12_HSC_0001_01_SE01_MR.txt',col_names = FALSE) %>%  pivot_longer(everything()) %>%  select(value) %>% .$value
-roi_extra_flip <- read_table('sample_test/roi_flip/PND12_HSC_0001_01_SE01_MR.txt',col_names = FALSE) %>%  pivot_longer(everything()) %>%  select(value) %>% .$value
-```
+NOTE, redo PND36_HSC_0001_01_SE01_MR.txt
 
+```{r get all ROI_AI values}
+roi_AI_list <-
+  file.path(data_path, 'roi_AI') %>% dir() %>% gsub("_01_SE01_MR.txt", "", .)
 
+roi_AI_mat <- array(NA, dim = c(dim(study)[1], dim(roi_merge)[1]))
 
-```{r}
-
-tmp<-read_csv('~/Desktop/sub-395549_bold_RAS_combined_cleaned_FC_matrix.csv') %>% .[-1]
-dim(tmp)
-
-library(RMINC)
-roi_merge$nvox = c()
-
-atlas <- mincGetVolume('asset/DSURQE_40micron_labels.mnc') %>% mincArray(dimIndex = 1)
-for(i in 1:dim(roi_merge)[1]){
-  roi_merge$nvox[i] <-  sum(atlas[,,]==roi_merge$label[i])
+for (i in 1:dim(study)[1]) {
+  roi_AI_file <- which(roi_AI_list %in% study$POND_Mouse_ID[i])
+  if (length(roi_AI_file) == 1) {
+    roi_AI_mat[i, ] <-
+      read_table(
+        file.path(
+          data_path,
+          'roi_AI',
+          glue('{roi_AI_list[roi_AI_file]}_01_SE01_MR.txt')
+        ),
+        col_names = FALSE,
+        col_types = cols()
+      ) %>%  pivot_longer(everything()) %>% data_extract(value)
+  }
+  
 }
 
-# print the number of voxels when the atlas is resampled to 0.3um from 0.04 isotropic. 
-sort((roi_merge$nvox * 0.04^3)/(0.3^3))
 ```
+
+
+
+
+```{r test stats}
+
+
+study_name <- unique(study$Study_Name)
+
+AI_var_ratio <- array(NA, dim = c(dim(roi_merge)[1], length(study_name)))
+AI_var_lower <- array(NA, dim = c(dim(roi_merge)[1], length(study_name)))
+AI_var_upper <- array(NA, dim = c(dim(roi_merge)[1], length(study_name)))
+AI_var_sign <- array(NA, dim = c(dim(roi_merge)[1], length(study_name)))
+
+AI_hedges_g <- array(NA, dim = c(dim(roi_merge)[1], length(study_name)))
+AI_hedges_lower <-
+  array(NA, dim = c(dim(roi_merge)[1], length(study_name)))
+AI_hedges_upper <-
+  array(NA, dim = c(dim(roi_merge)[1], length(study_name)))
+AI_hedges_sign <-
+  array(NA, dim = c(dim(roi_merge)[1], length(study_name)))
+
+
+for (i in 1:dim(roi_merge)[1]) {
+  study$AI <- roi_AI_mat[, i]
+  
+  
+  for (j in 1:length(study_name)) {
+    study_sub <- study[study$Study_Name == study_name[j], ]
+    Tg <- study_sub$AI[study_sub$Is_Wildtype == 'MUT']
+    Wt <- study_sub$AI[study_sub$Is_Wildtype == 'WT']
+    
+    if (sum(is.na(Wt)) == length(Wt)) {
+      next
+    }
+    if (sum(is.na(Tg)) == length(Tg)) {
+      next
+    }
+    
+    
+    AI_var <- var.test(Tg, Wt)
+    AI_var_ratio[i, j] <- AI_var$estimate[[1]]
+    AI_var_lower[i, j] <- AI_var$conf.int[1]
+    AI_var_upper[i, j] <- AI_var$conf.int[2]
+    AI_var_sign[i, j] <-
+      sign(AI_var$conf.int[2]) == sign(AI_var$conf.int[1])
+    
+    AI_g <- hedges_g(Tg, Wt)
+    AI_hedges_g[i, j] <- AI_g$Hedges_g
+    AI_hedges_lower[i, j] <- AI_g$CI_low
+    AI_hedges_upper[i, j] <- AI_g$CI_high
+    AI_hedges_sign[i, j] <- sign(AI_g$CI_high) == sign(AI_g$CI_low)
+    
+  }
+}
+
+
+
+
+```
+
+
+
 
