@@ -28,8 +28,8 @@ the exisiting DSURQE label info is not very clear. Here I reshape it for better 
 roi_raw <- read_csv('asset/DSURQE_40micron_R_mapping.csv',col_types = cols())
 
 
-roi_merge <- tibble(dsurqe_struct=c(glue('Right {roi_raw$Structure}'),glue('Left {roi_raw$Structure}')), 
-                   abi_struct=c(glue('Right {roi_raw$ABI}'),glue('Left {roi_raw$ABI}')), 
+roi_merge <- tibble(dsurqe_struct=c(roi_raw$Structure,roi_raw$Structure), 
+                   abi_struct=c(roi_raw$ABI,roi_raw$ABI), 
                    tissue=c(roi_raw$`tissue type`, roi_raw$`tissue type`), 
                    label=c(roi_raw$`right label`, roi_raw$`left label`),
                    hemisphere=c(rep('right', dim(roi_raw)[1]), rep('left', dim(roi_raw)[1]))) %>% arrange(label)

@@ -18,6 +18,9 @@ library(glue,warn.conflicts = FALSE)
 library(datawizard,warn.conflicts = FALSE)
 library(effectsize)
 library(report)
+
+#nifti
+library(oro.nifti)
 ```
 
 
@@ -57,20 +60,30 @@ study <-
 roi_merge <-
   read_csv('asset/roi_label_clean.csv', col_types = cols())
 
-data_path <- '/project/4180000.24/asym/proc/absolute/'
+data_path <- '/project/4180000.24/asym/proc/'
 
 
 ```
 
 
 
-## load AI per ROI
+## do ROI stats
 
 NOTE, redo PND36_HSC_0001_01_SE01_MR.txt
 
-```{r get all ROI_AI values}
+```{r do all the ROI stats}
+
+study_name <- unique(study$Study_Name)
+right_select<-which(roi_merge$hemisphere=='right' & roi_merge$tissue=='GM')
+left_select<-which(roi_merge$hemisphere=='left' & roi_merge$tissue=='GM')
+left_reorder<-match(roi_merge$abi_struct[right_select],roi_merge$abi_struct[left_select])
+
+jac_type<-'absolute'
+
+for(jac_type in c('absolute','relative')){
+
 roi_AI_list <-
-  file.path(data_path, 'roi_AI') %>% dir() %>% gsub("_01_SE01_MR.txt", "", .)
+  file.path(data_path,jac_type, 'roi_AI') %>% dir() %>% gsub("_01_SE01_MR.txt", "", .)
 
 roi_AI_mat <- array(NA, dim = c(dim(study)[1], dim(roi_merge)[1]))
 
@@ -81,6 +94,7 @@ for (i in 1:dim(study)[1]) {
       read_table(
         file.path(
           data_path,
+          jac_type,
           'roi_AI',
           glue('{roi_AI_list[roi_AI_file]}_01_SE01_MR.txt')
         ),
@@ -91,15 +105,7 @@ for (i in 1:dim(study)[1]) {
   
 }
 
-```
 
-
-
-
-```{r test stats}
-
-
-study_name <- unique(study$Study_Name)
 
 AI_var_ratio <- array(NA, dim = c(dim(roi_merge)[1], length(study_name)))
 AI_var_lower <- array(NA, dim = c(dim(roi_merge)[1], length(study_name)))
@@ -148,11 +154,101 @@ for (i in 1:dim(roi_merge)[1]) {
   }
 }
 
+AI_var_ratio[right_select,] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_right_AI_var_ratio.csv'))
+AI_var_ratio[left_select[left_reorder],]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_left_AI_var_ratio.csv'))
+AI_var_lower[right_select,] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_right_AI_var_lower.csv'))
+AI_var_lower[left_select[left_reorder],]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_left_AI_var_lower.csv'))
+AI_var_upper[right_select,] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_right_AI_var_upper.csv'))
+AI_var_upper[left_select[left_reorder],]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_left_AI_var_upper.csv'))
+AI_var_sign[right_select,] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_right_AI_var_sign.csv'))
+AI_var_sign[left_select[left_reorder],]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_left_AI_var_sign.csv'))
 
 
+AI_hedges_g[right_select,] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_right_hedges_g.csv'))
+AI_hedges_g[left_select[left_reorder],]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_left_hedges_g.csv'))
+AI_hedges_lower[right_select,] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_right_AI_hedges_lower.csv'))
+AI_hedges_lower[left_select[left_reorder],]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_left_AI_hedges_lower.csv'))
+AI_hedges_upper[right_select,] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_right_AI_hedges_upper.csv'))
+AI_hedges_upper[left_select[left_reorder],]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_left_AI_hedges_upper.csv'))
+AI_hedges_sign[right_select,] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_right_AI_hedges_sign.csv'))
+AI_hedges_sign[left_select[left_reorder],]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_left_AI_hedges_sign.csv'))
 
+}
 ```
 
+## Do voxelwise stats
 
+```{r}
+jac_type<-'absolute'
+
+vol_AI_list <-
+  file.path(data_path,jac_type, 'vol_AI') %>% dir() %>% gsub("_01_SE01_MR.nii.gz", "", .)
+vol_template<-readNIfTI(file.path(data_path,jac_type, 'vol_AI', glue('{vol_AI_list[1]}_01_SE01_MR.nii.gz')))
+for (j in 1:length(study_name)) {
+  
+  study_sub <- study[study$Study_Name == study_name[j], ]
+  AI_arr<-array(NA,dim=c(dim(study_sub)[1],97,191,63))
+  
+  for(i in 1:dim(study_sub)[1]){
+ 
+  vol_AI_file <- vol_AI_list[which(vol_AI_list %in% study_sub$POND_Mouse_ID[i])]
+  if(length(roi_AI_file)==0){next}
+  
+  #####I think this part bugs. Needs to sort it .
+  AI_arr[i,,,]<-c(readNIfTI(file.path(data_path,jac_type, 'vol_AI', glue('{vol_AI_file}_01_SE01_MR.nii.gz'))))
+  }
+  
+  var_ratio_img<-array(0,dim=c(97,191,63))
+  var_sign_img<-array(0,dim=c(97,191,63))
+  hedges_g_img<-array(0,dim=c(97,191,63))
+  hedges_sign_img<-array(0,dim=c(97,191,63))
+  
+  for(x in 1:97){
+    for(y in 1:191){
+      for(z in 1:63){
+        
+        study_sub$AI <- AI_arr[,x,y,z]
+        Tg <- study_sub$AI[study_sub$Is_Wildtype == 'MUT']
+        Wt <- study_sub$AI[study_sub$Is_Wildtype == 'WT']
+    
+        if (sum(is.na(Wt)) == length(Wt)) {
+          next
+        }
+        if (sum(Wt==0) == length(Wt)) {
+          next
+        }
+        if (sum(Tg==0) == length(Tg)) {
+          next
+        }
+    
+    
+        AI_var <- var.test(Tg, Wt)
+        var_ratio_img[x,y,z] <- AI_var$estimate[[1]]
+        var_sign_img[x,y,z] <-
+          sign(AI_var$conf.int[2]) == sign(AI_var$conf.int[1])
+    
+        AI_g <- hedges_g(Tg, Wt)
+        hedges_g_img[x,y,z] <- AI_g$Hedges_g
+        hedges_sign_img[x,y,z] <- sign(AI_g$CI_high) == sign(AI_g$CI_low)
+        
+        
+      }
+    }  
+  }
+  
+  nii<-vol_template
+  nii[]<-var_ratio_img
+  writeNIfTI(nii,glue('asset/nii/{jac_type}_{study_name[j]}_var_ratio'))
+  nii[]<-var_sign_img
+  writeNIfTI(nii,glue('asset/nii/{jac_type}_{study_name[j]}_var_sign')) 
+  
+  nii[]<-hedges_g_img
+  writeNIfTI(nii,glue('asset/nii/{jac_type}_{study_name[j]}_hedges_g')) 
+  nii[]<-hedges_sign_img
+  writeNIfTI(nii,glue('asset/nii/{jac_type}_{study_name[j]}_hedges_sign'))   
+  
+}
+
+```
 
 
