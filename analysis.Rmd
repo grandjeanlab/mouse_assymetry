@@ -20,7 +20,8 @@ library(effectsize)
 library(report)
 
 #nifti
-library(oro.nifti)
+library(RNifti)
+library(abind)
 ```
 
 
@@ -57,6 +58,8 @@ study <-
         mutate(Mouse_Sex = as_factor(Mouse_Sex)) %>% mutate(Is_Wildtype = as_factor(Is_Wildtype)) %>% 
         mutate(Background = as_factor(Background))
 
+study_name <- unique(study$Study_Name)
+
 roi_merge <-
   read_csv('asset/roi_label_clean.csv', col_types = cols())
 
@@ -73,12 +76,9 @@ NOTE, redo PND36_HSC_0001_01_SE01_MR.txt
 
 ```{r do all the ROI stats}
 
-study_name <- unique(study$Study_Name)
 right_select<-which(roi_merge$hemisphere=='right' & roi_merge$tissue=='GM')
 left_select<-which(roi_merge$hemisphere=='left' & roi_merge$tissue=='GM')
 left_reorder<-match(roi_merge$abi_struct[right_select],roi_merge$abi_struct[left_select])
-
-jac_type<-'absolute'
 
 for(jac_type in c('absolute','relative')){
 
@@ -183,19 +183,22 @@ jac_type<-'absolute'
 
 vol_AI_list <-
   file.path(data_path,jac_type, 'vol_AI') %>% dir() %>% gsub("_01_SE01_MR.nii.gz", "", .)
-vol_template<-readNIfTI(file.path(data_path,jac_type, 'vol_AI', glue('{vol_AI_list[1]}_01_SE01_MR.nii.gz')))
+vol_template<-readNifti(file.path(data_path,jac_type, 'vol_AI', glue('{vol_AI_list[1]}_01_SE01_MR.nii.gz')))
 for (j in 1:length(study_name)) {
   
   study_sub <- study[study$Study_Name == study_name[j], ]
-  AI_arr<-array(NA,dim=c(dim(study_sub)[1],97,191,63))
+  AI_arr<-c()
+  exclude<-c()
   
   for(i in 1:dim(study_sub)[1]){
  
   vol_AI_file <- vol_AI_list[which(vol_AI_list %in% study_sub$POND_Mouse_ID[i])]
-  if(length(roi_AI_file)==0){next}
+  if(length(vol_AI_file)==0){exclude<-c(exclude,i)
+                              next}
   
   #####I think this part bugs. Needs to sort it .
-  AI_arr[i,,,]<-c(readNIfTI(file.path(data_path,jac_type, 'vol_AI', glue('{vol_AI_file}_01_SE01_MR.nii.gz'))))
+  AI_tmp<-readNifti(file.path(data_path,jac_type, 'vol_AI', glue('{vol_AI_file}_01_SE01_MR.nii.gz')))
+  AI_arr<-abind(AI_arr, AI_tmp[],along = 4)
   }
   
   var_ratio_img<-array(0,dim=c(97,191,63))
@@ -203,11 +206,14 @@ for (j in 1:length(study_name)) {
   hedges_g_img<-array(0,dim=c(97,191,63))
   hedges_sign_img<-array(0,dim=c(97,191,63))
   
+   if(length(exclude)>0){study_sub<- study_sub %>% slice(-exclude)}
+  
   for(x in 1:97){
     for(y in 1:191){
       for(z in 1:63){
         
-        study_sub$AI <- AI_arr[,x,y,z]
+       
+        study_sub$AI <- AI_arr[x,y,z,]
         Tg <- study_sub$AI[study_sub$Is_Wildtype == 'MUT']
         Wt <- study_sub$AI[study_sub$Is_Wildtype == 'WT']
     
@@ -215,6 +221,9 @@ for (j in 1:length(study_name)) {
           next
         }
         if (sum(Wt==0) == length(Wt)) {
+          next
+        }
+        if (sum(is.na(Tg)) == length(Tg)) {
           next
         }
         if (sum(Tg==0) == length(Tg)) {
@@ -236,17 +245,11 @@ for (j in 1:length(study_name)) {
     }  
   }
   
-  nii<-vol_template
-  nii[]<-var_ratio_img
-  writeNIfTI(nii,glue('asset/nii/{jac_type}_{study_name[j]}_var_ratio'))
-  nii[]<-var_sign_img
-  writeNIfTI(nii,glue('asset/nii/{jac_type}_{study_name[j]}_var_sign')) 
-  
-  nii[]<-hedges_g_img
-  writeNIfTI(nii,glue('asset/nii/{jac_type}_{study_name[j]}_hedges_g')) 
-  nii[]<-hedges_sign_img
-  writeNIfTI(nii,glue('asset/nii/{jac_type}_{study_name[j]}_hedges_sign'))   
-  
+  var_ratio_img %>% asNifti %>% writeNifti(glue('asset/nii/{jac_type}_{study_name[j]}_var_ratio'), template = vol_template)
+  var_sign_img %>% asNifti %>% writeNifti(glue('asset/nii/{jac_type}_{study_name[j]}_var_sign'), template = vol_template)
+  hedges_g_img %>% asNifti %>% writeNifti(glue('asset/nii/{jac_type}_{study_name[j]}_hedges_g'), template = vol_template)
+  hedges_sign_img %>% asNifti %>% writeNifti(glue('asset/nii/{jac_type}_{study_name[j]}_hedges_sign'), template = vol_template)
+
 }
 
 ```
