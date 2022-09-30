@@ -29,41 +29,27 @@ library(abind)
 ```{r load global variables}
 
 study <-
-  read_csv('asset/study_stable.csv', col_types = cols()) %>% select(
+  read_csv('asset/study.csv', col_types = cols()) %>% select(
     Mouse_ID,
     POND_Mouse_ID,
     Study_Name,
     Is_Wildtype,
-    Genotype,
-    MGI_Genotype,
-    Background,
-    MGI_Background,
-    Mouse_Weight,
-    Mouse_Age,
+    TwoLevel_Group,
     Mouse_Sex,
-    Scan_Type,
-    Scan_Coil,
-    Scan_Date,
-    Scan_Operator,
-    Isotropic_Voxel_Resolution
-  ) %>% mutate(Mouse_Age = replace(Mouse_Age, Mouse_Age == "(Empty)", "P040")) %>% 
-        mutate(Mouse_Age = gsub("P", '', .$Mouse_Age)) %>% 
-        mutate(Mouse_Age = replace(Mouse_Age, Mouse_Age == "058-062", "060")) %>% 
-        mutate(Mouse_Age = replace(Mouse_Age, Mouse_Age == "070-077", "073")) %>% 
-        mutate(Mouse_Age = replace(Mouse_Age, Mouse_Age == "224-245", "235")) %>% 
-        mutate(Mouse_Age = replace(Mouse_Age, Mouse_Age == "098-168", "133")) %>% 
-        mutate(Mouse_Age = replace(Mouse_Age, Mouse_Age == "154-161", "157")) %>% 
-        mutate(Mouse_Age =as.numeric(.$Mouse_Age)) %>% 
-        mutate(Genotype = as_factor(Genotype)) %>% 
-        mutate(Mouse_Sex = as_factor(Mouse_Sex)) %>% mutate(Is_Wildtype = as_factor(Is_Wildtype)) %>% 
-        mutate(Background = as_factor(Background))
+    Timepoint,
+    Mouse_Age,
+    Mouse_Weight,
+    Genotype_Code, 
+    Treatment_Code, 
+    Perfusion_Date, 
+    Scan_Date)
 
 study_name <- unique(study$Study_Name)
 
 roi_merge <-
   read_csv('asset/roi_label_clean.csv', col_types = cols())
 
-data_path <- '/project/4180000.24/asym/proc/'
+data_path <- '/project/4180000.34/proc/'
 
 
 ```
@@ -71,8 +57,6 @@ data_path <- '/project/4180000.24/asym/proc/'
 
 
 ## do ROI stats
-
-NOTE, redo PND36_HSC_0001_01_SE01_MR.txt
 
 ```{r do all the ROI stats}
 
@@ -83,12 +67,12 @@ left_reorder<-match(roi_merge$abi_struct[right_select],roi_merge$abi_struct[left
 for(jac_type in c('absolute','relative')){
 
 roi_AI_list <-
-  file.path(data_path,jac_type, 'roi_AI') %>% dir() %>% gsub("_01_SE01_MR.txt", "", .)
+  file.path(data_path,jac_type, 'roi_AI') %>% dir() %>% gsub(".txt", "", .)
 
 roi_AI_mat <- array(NA, dim = c(dim(study)[1], dim(roi_merge)[1]))
 
 for (i in 1:dim(study)[1]) {
-  roi_AI_file <- which(roi_AI_list %in% study$POND_Mouse_ID[i])
+  roi_AI_file <- which(roi_AI_list %in% study$Mouse_ID[i])
   if (length(roi_AI_file) == 1) {
     roi_AI_mat[i, ] <-
       read_table(
@@ -96,7 +80,7 @@ for (i in 1:dim(study)[1]) {
           data_path,
           jac_type,
           'roi_AI',
-          glue('{roi_AI_list[roi_AI_file]}_01_SE01_MR.txt')
+          glue('{roi_AI_list[roi_AI_file]}.txt')
         ),
         col_names = FALSE,
         col_types = cols()
@@ -122,7 +106,7 @@ AI_hedges_sign <-
 
 
 for (i in 1:dim(roi_merge)[1]) {
-  study$AI <- roi_AI_mat[, i]
+  study$AI <- roi_AI_mat[, i] %>% abs()
   
   
   for (j in 1:length(study_name)) {
@@ -182,8 +166,8 @@ AI_hedges_sign[left_select[left_reorder],]  %>% as_tibble() %>% write_csv(glue('
 jac_type<-'absolute'
 
 vol_AI_list <-
-  file.path(data_path,jac_type, 'vol_AI') %>% dir() %>% gsub("_01_SE01_MR.nii.gz", "", .)
-vol_template<-readNifti(file.path(data_path,jac_type, 'vol_AI', glue('{vol_AI_list[1]}_01_SE01_MR.nii.gz')))
+  file.path(data_path,jac_type, 'vol_AI') %>% dir() %>% gsub(".nii.gz", "", .)
+vol_mask<-readNifti('/project/4180000.34/template/mask_rs.nii.gz')
 for (j in 1:length(study_name)) {
   
   study_sub <- study[study$Study_Name == study_name[j], ]
@@ -192,12 +176,12 @@ for (j in 1:length(study_name)) {
   
   for(i in 1:dim(study_sub)[1]){
  
-  vol_AI_file <- vol_AI_list[which(vol_AI_list %in% study_sub$POND_Mouse_ID[i])]
+  vol_AI_file <- vol_AI_list[which(vol_AI_list %in% study_sub$Mouse_ID[i])]
   if(length(vol_AI_file)==0){exclude<-c(exclude,i)
                               next}
   
   #####I think this part bugs. Needs to sort it .
-  AI_tmp<-readNifti(file.path(data_path,jac_type, 'vol_AI', glue('{vol_AI_file}_01_SE01_MR.nii.gz')))
+  AI_tmp<-readNifti(file.path(data_path,jac_type, 'vol_AI', glue('{vol_AI_file}.nii.gz')))
   AI_arr<-abind(AI_arr, AI_tmp[],along = 4)
   }
   
@@ -211,9 +195,9 @@ for (j in 1:length(study_name)) {
   for(x in 1:97){
     for(y in 1:191){
       for(z in 1:63){
-        
+        if(vol_mask[x,y,z]==0){next}
        
-        study_sub$AI <- AI_arr[x,y,z,]
+        study_sub$AI <- AI_arr[x,y,z,] %>% abs()
         Tg <- study_sub$AI[study_sub$Is_Wildtype == 'MUT']
         Wt <- study_sub$AI[study_sub$Is_Wildtype == 'WT']
     
@@ -245,10 +229,10 @@ for (j in 1:length(study_name)) {
     }  
   }
   
-  var_ratio_img %>% asNifti %>% writeNifti(glue('asset/nii/{jac_type}_{study_name[j]}_var_ratio'), template = vol_template)
-  var_sign_img %>% asNifti %>% writeNifti(glue('asset/nii/{jac_type}_{study_name[j]}_var_sign'), template = vol_template)
-  hedges_g_img %>% asNifti %>% writeNifti(glue('asset/nii/{jac_type}_{study_name[j]}_hedges_g'), template = vol_template)
-  hedges_sign_img %>% asNifti %>% writeNifti(glue('asset/nii/{jac_type}_{study_name[j]}_hedges_sign'), template = vol_template)
+  var_ratio_img %>% asNifti %>% writeNifti(glue('asset/nii/{jac_type}_{study_name[j]}_var_ratio'), template = vol_mask)
+  var_sign_img %>% asNifti %>% writeNifti(glue('asset/nii/{jac_type}_{study_name[j]}_var_sign'), template = vol_mask)
+  hedges_g_img %>% asNifti %>% writeNifti(glue('asset/nii/{jac_type}_{study_name[j]}_hedges_g'), template = vol_mask)
+  hedges_sign_img %>% asNifti %>% writeNifti(glue('asset/nii/{jac_type}_{study_name[j]}_hedges_sign'), template = vol_mask)
 
 }
 
