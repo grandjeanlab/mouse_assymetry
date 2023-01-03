@@ -1,0 +1,169 @@
+---
+title: "plotting mouse asymetry"
+output: github_document
+author: "Joanes Grandjean
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r load libraries}
+#tidy stuff
+library(tidyverse,warn.conflicts = FALSE)
+library(glue,warn.conflicts = FALSE)
+
+#easystat
+library(datawizard,warn.conflicts = FALSE)
+
+#nifti
+library(RNifti)
+library(abind)
+
+#cluster
+library(factoextra)
+library(cluster)
+```
+
+
+## load main assets
+```{r load global variables}
+
+study <-
+  read_csv('asset/study.csv', col_types = cols()) %>% select(
+    Mouse_ID,
+    POND_Mouse_ID,
+    Study_Name,
+    Is_Wildtype,
+    TwoLevel_Group,
+    Mouse_Sex,
+    Timepoint,
+    Mouse_Age,
+    Mouse_Weight,
+    Genotype_Code, 
+    Treatment_Code, 
+    Perfusion_Date, 
+    Scan_Date)
+
+study_name <- unique(study$Study_Name)
+
+roi_merge <-
+  read_csv('asset/roi_label_clean.csv', col_types = cols())
+
+data_path <- '/project/4180000.34/proc/'
+
+right_select<-which(roi_merge$hemisphere=='right' & roi_merge$tissue=='GM')
+left_select<-which(roi_merge$hemisphere=='left' & roi_merge$tissue=='GM')
+left_reorder<-match(roi_merge$abi_struct[right_select],roi_merge$abi_struct[left_select])
+
+
+```
+
+
+
+## do right absolute
+```{r }
+stats_df<-read_csv('asset/results/absolute_left_AI_var_ratio.csv') 
+which_na<-which(is.na(stats_df[1,]))
+stats_df<-stats_df[,-which_na]
+
+#get the order of the ROIs according to euclidian distance and hierchical cluster
+hc <- hclust(dist(stats_df), "complete")
+
+
+gap_stat <- clusGap(scale(stats_df),
+                    FUN = kmeans,
+                    nstart = 25,
+                    K.max = 10,
+                    B = 50)
+
+#plot number of clusters vs. gap statistic
+fviz_gap_stat(gap_stat)
+
+fviz_nbclust(scale(stats_df), kmeans, method = "wss")
+
+stats_melt<-stats_df %>% as.matrix() %>% reshape2::melt(c('x','y'),value.name = 'z') 
+ggplot(data=stats_melt,aes(x=x,y=y,fill=z))+
+  geom_tile()
+```
+
+## Do voxelwise stats
+
+```{r}
+jac_type<-'absolute'
+
+vol_AI_list <-
+  file.path(data_path,jac_type, 'vol_AI') %>% dir() %>% gsub(".nii.gz", "", .)
+vol_mask<-readNifti('/project/4180000.34/template/mask_rs.nii.gz')
+for (j in 1:length(study_name)) {
+  
+  study_sub <- study[study$Study_Name == study_name[j], ]
+  AI_arr<-c()
+  exclude<-c()
+  
+  for(i in 1:dim(study_sub)[1]){
+ 
+  vol_AI_file <- vol_AI_list[which(vol_AI_list %in% study_sub$Mouse_ID[i])]
+  if(length(vol_AI_file)==0){exclude<-c(exclude,i)
+                              next}
+  
+  #####I think this part bugs. Needs to sort it .
+  AI_tmp<-readNifti(file.path(data_path,jac_type, 'vol_AI', glue('{vol_AI_file}.nii.gz')))
+  AI_arr<-abind(AI_arr, AI_tmp[],along = 4)
+  }
+  
+  var_ratio_img<-array(0,dim=c(97,191,63))
+  var_sign_img<-array(0,dim=c(97,191,63))
+  hedges_g_img<-array(0,dim=c(97,191,63))
+  hedges_sign_img<-array(0,dim=c(97,191,63))
+  
+   if(length(exclude)>0){study_sub<- study_sub %>% slice(-exclude)}
+  
+  for(x in 1:97){
+    for(y in 1:191){
+      for(z in 1:63){
+        if(vol_mask[x,y,z]==0){next}
+       
+        study_sub$AI <- AI_arr[x,y,z,] %>% abs()
+        Tg <- study_sub$AI[study_sub$Is_Wildtype == 'MUT']
+        Wt <- study_sub$AI[study_sub$Is_Wildtype == 'WT']
+    
+        if (sum(is.na(Wt)) == length(Wt)) {
+          next
+        }
+        if (sum(Wt==0) == length(Wt)) {
+          next
+        }
+        if (sum(is.na(Tg)) == length(Tg)) {
+          next
+        }
+        if (sum(Tg==0) == length(Tg)) {
+          next
+        }
+    
+    
+        AI_var <- var.test(Tg, Wt)
+        var_ratio_img[x,y,z] <- AI_var$estimate[[1]]
+        var_sign_img[x,y,z] <-
+          sign(AI_var$conf.int[2]) == sign(AI_var$conf.int[1])
+    
+        AI_g <- hedges_g(Tg, Wt)
+        hedges_g_img[x,y,z] <- AI_g$Hedges_g
+        hedges_sign_img[x,y,z] <- sign(AI_g$CI_high) == sign(AI_g$CI_low)
+        
+        
+      }
+    }  
+  }
+  
+  var_ratio_img %>% asNifti %>% writeNifti(glue('asset/nii/{jac_type}_{study_name[j]}_var_ratio'), template = vol_mask)
+  var_sign_img %>% asNifti %>% writeNifti(glue('asset/nii/{jac_type}_{study_name[j]}_var_sign'), template = vol_mask)
+  hedges_g_img %>% asNifti %>% writeNifti(glue('asset/nii/{jac_type}_{study_name[j]}_hedges_g'), template = vol_mask)
+  hedges_sign_img %>% asNifti %>% writeNifti(glue('asset/nii/{jac_type}_{study_name[j]}_hedges_sign'), template = vol_mask)
+
+}
+
+```
+
+

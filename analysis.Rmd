@@ -173,6 +173,7 @@ for (i in 1:dim(roi_merge)[1]) {
     
 }
 
+<<<<<<< HEAD
 project2atlas(roi_merge$label[right_select],AI_hedges_g[right_select],AI_hedges_sign[right_select]) %>% writeNifti(glue('asset/nifti/{jac_type}_wt_right.nii.gz'))
 
 project2atlas(roi_merge$label[left_select],AI_hedges_g[left_select],AI_hedges_sign[left_select]) %>% writeNifti(glue('asset/nifti/{jac_type}_wt_left.nii.gz'))
@@ -186,6 +187,26 @@ AI_hedges_upper[right_select] %>% as_tibble() %>% write_csv(glue('asset/results/
 AI_hedges_upper[left_select[left_reorder]]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_left_AI_hedges_upper.csv'))
 AI_hedges_sign[right_select] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_right_AI_hedges_sign.csv'))
 AI_hedges_sign[left_select[left_reorder]]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_left_AI_hedges_sign.csv'))
+=======
+AI_var_ratio[right_select,] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_right_AI_var_ratio.csv'))
+AI_var_ratio[left_select[left_reorder],]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_left_AI_var_ratio.csv'))
+AI_var_lower[right_select,] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_right_AI_var_lower.csv'))
+AI_var_lower[left_select[left_reorder],]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_left_AI_var_lower.csv'))
+AI_var_upper[right_select,] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_right_AI_var_upper.csv'))
+AI_var_upper[left_select[left_reorder],]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_left_AI_var_upper.csv'))
+AI_var_sign[right_select,] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_right_AI_var_sign.csv'))
+AI_var_sign[left_select[left_reorder],]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_left_AI_var_sign.csv'))
+
+
+AI_hedges_g[right_select,] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_right_AI_hedges_g.csv'))
+AI_hedges_g[left_select[left_reorder],]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_left_AI_hedges_g.csv'))
+AI_hedges_lower[right_select,] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_right_AI_hedges_lower.csv'))
+AI_hedges_lower[left_select[left_reorder],]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_left_AI_hedges_lower.csv'))
+AI_hedges_upper[right_select,] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_right_AI_hedges_upper.csv'))
+AI_hedges_upper[left_select[left_reorder],]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_left_AI_hedges_upper.csv'))
+AI_hedges_sign[right_select,] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_right_AI_hedges_sign.csv'))
+AI_hedges_sign[left_select[left_reorder],]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_left_AI_hedges_sign.csv'))
+>>>>>>> 1e7d8b140fce833e5917eca8232fa7d03e391dc5
 
 }
 
