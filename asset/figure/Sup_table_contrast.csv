@@ -1,0 +1,285 @@
+dsurqe_struct,abi_struct,contrast,study,nWt,nTg,g,g_lower,g_upper
+Insular region: not subdivided,Ectorhinal area,15q_WT_n10_pDp_n10,15q,10,10,-1.0742003684676038,-1.9703487999308649,-0.15270595102672033
+Primary visual cortex,Primary visual area,15q_wMat_WT_n8_MDp_n9,15q,8,9,-1.0062234215700367,-1.9635596369237196,-0.02008017806937393
+CA3Py Outer,"Field CA3, pyramidal layer",15q_wMat_WT_n8_MDp_n9,15q,8,9,-1.213632573646137,-2.1983529079651496,-0.19615148170386829
+amygdala,Cortical subplate,16p11_WT_n9_dp_n22,16p11,9,22,-0.9919252061842645,-1.781131765766175,-0.18736917329953515
+Dorsolateral orbital cortex,"Agranular insular area, dorsal part",16p11_WT_n9_dp_n22,16p11,9,22,1.2143645177921565,0.38856204810243955,2.022252465285328
+Secondary motor cortex,Secondary motor area,16p11_WT_n9_dp_n22,16p11,9,22,-0.8195450777969614,-1.596913987971271,-0.02908677062732711
+nucleus interpositus,Interposed nucleus,16p11_WT_n9_dp_n22,16p11,9,22,0.9219774991726984,0.1233998983281851,1.7060955016201838
+CA2Py,"Field CA2, pyramidal layer",16p11_WT_n9_dp_n22,16p11,9,22,0.9062777599521741,0.10899397417993689,1.6893066877884637
+CA30r,"Field CA3, stratum oriens",16p11_WT_n9_dp_n22,16p11,9,22,0.8667842097615255,0.07267658453147155,1.647160766108611
+amygdala,Cortical subplate,16p11_WT_n9_df_n22,16p11,9,22,-0.9919252061842645,-1.781131765766175,-0.18736917329953515
+Dorsolateral orbital cortex,"Agranular insular area, dorsal part",16p11_WT_n9_df_n22,16p11,9,22,1.2143645177921565,0.38856204810243955,2.022252465285328
+Secondary motor cortex,Secondary motor area,16p11_WT_n9_df_n22,16p11,9,22,-0.8195450777969614,-1.596913987971271,-0.02908677062732711
+nucleus interpositus,Interposed nucleus,16p11_WT_n9_df_n22,16p11,9,22,0.9219774991726984,0.1233998983281851,1.7060955016201838
+CA2Py,"Field CA2, pyramidal layer",16p11_WT_n9_df_n22,16p11,9,22,0.9062777599521741,0.10899397417993689,1.6893066877884637
+CA30r,"Field CA3, stratum oriens",16p11_WT_n9_df_n22,16p11,9,22,0.8667842097615255,0.07267658453147155,1.647160766108611
+Claustrum,Claustrum,22q11_WT_n10_DEL_n10,22q11,10,10,-0.9343430285229262,-1.8153392779310036,-0.030499457550118406
+Primary somatosensory cortex: barrel field,"Primary somatosensory area, barrel field",22q11_WT_n10_DEL_n10,22q11,10,10,1.110683989053857,0.1842879318129721,2.0111307586054097
+Primary somatosensory cortex: shoulder region,"Primary somatosensory area, trunk",22q11_WT_n10_DEL_n10,22q11,10,10,0.9326777213189519,0.029033164863907807,1.8135063849141961
+globus pallidus,"Pallidum, dorsal region",AndR_WT_n22_12Q_Het_n72,AndR,22,72,0.5215967860687646,0.04071857005844897,0.9997115473319025
+stria terminalis,stria terminalis,AndR_WT_n22_12Q_Het_n72,AndR,22,72,-0.5447433057480578,-1.0233344328649354,-0.06327128291175334
+Primary motor cortex,Primary motor area,AndR_WT_n22_12Q_Het_n72,AndR,22,72,-0.48956527481305356,-0.9670567187189701,-0.009472038663260582
+Medial entorhinal cortex,"Entorhinal area, medial part, ventral zone",AndR_WT_n22_12Q_Het_n72,AndR,22,72,-0.5178362948434256,-0.9958749430395485,-0.03705227340649918
+paramedian lobule (lobule 7),Paramedian lobule,AndR_WT_n22_12Q_Het_n72,AndR,22,72,-0.738807083155259,-1.2222978183606537,-0.2514910134115336
+CA10r,"Field CA1, stratum oriens",AndR_WT_n22_12Q_Het_n72,AndR,22,72,0.48312274095764696,0.0031821676565475113,0.9604942954284814
+globus pallidus,"Pallidum, dorsal region",AndR_WT_n22_12Q_n72,AndR,22,72,0.5215967860687646,0.04071857005844897,0.9997115473319025
+stria terminalis,stria terminalis,AndR_WT_n22_12Q_n72,AndR,22,72,-0.5447433057480578,-1.0233344328649354,-0.06327128291175334
+Primary motor cortex,Primary motor area,AndR_WT_n22_12Q_n72,AndR,22,72,-0.48956527481305356,-0.9670567187189701,-0.009472038663260582
+Medial entorhinal cortex,"Entorhinal area, medial part, ventral zone",AndR_WT_n22_12Q_n72,AndR,22,72,-0.5178362948434256,-0.9958749430395485,-0.03705227340649918
+paramedian lobule (lobule 7),Paramedian lobule,AndR_WT_n22_12Q_n72,AndR,22,72,-0.738807083155259,-1.2222978183606537,-0.2514910134115336
+CA10r,"Field CA1, stratum oriens",AndR_WT_n22_12Q_n72,AndR,22,72,0.48312274095764696,0.0031821676565475113,0.9604942954284814
+globus pallidus,"Pallidum, dorsal region",AndR_WT_n22_21Q_Het_n72,AndR,22,72,0.5215967860687646,0.04071857005844897,0.9997115473319025
+stria terminalis,stria terminalis,AndR_WT_n22_21Q_Het_n72,AndR,22,72,-0.5447433057480578,-1.0233344328649354,-0.06327128291175334
+Primary motor cortex,Primary motor area,AndR_WT_n22_21Q_Het_n72,AndR,22,72,-0.48956527481305356,-0.9670567187189701,-0.009472038663260582
+Medial entorhinal cortex,"Entorhinal area, medial part, ventral zone",AndR_WT_n22_21Q_Het_n72,AndR,22,72,-0.5178362948434256,-0.9958749430395485,-0.03705227340649918
+paramedian lobule (lobule 7),Paramedian lobule,AndR_WT_n22_21Q_Het_n72,AndR,22,72,-0.738807083155259,-1.2222978183606537,-0.2514910134115336
+CA10r,"Field CA1, stratum oriens",AndR_WT_n22_21Q_Het_n72,AndR,22,72,0.48312274095764696,0.0031821676565475113,0.9604942954284814
+globus pallidus,"Pallidum, dorsal region",AndR_WT_n22_21Q_n72,AndR,22,72,0.5215967860687646,0.04071857005844897,0.9997115473319025
+stria terminalis,stria terminalis,AndR_WT_n22_21Q_n72,AndR,22,72,-0.5447433057480578,-1.0233344328649354,-0.06327128291175334
+Primary motor cortex,Primary motor area,AndR_WT_n22_21Q_n72,AndR,22,72,-0.48956527481305356,-0.9670567187189701,-0.009472038663260582
+Medial entorhinal cortex,"Entorhinal area, medial part, ventral zone",AndR_WT_n22_21Q_n72,AndR,22,72,-0.5178362948434256,-0.9958749430395485,-0.03705227340649918
+paramedian lobule (lobule 7),Paramedian lobule,AndR_WT_n22_21Q_n72,AndR,22,72,-0.738807083155259,-1.2222978183606537,-0.2514910134115336
+CA10r,"Field CA1, stratum oriens",AndR_WT_n22_21Q_n72,AndR,22,72,0.48312274095764696,0.0031821676565475113,0.9604942954284814
+globus pallidus,"Pallidum, dorsal region",AndR_WT_n22_48Q_Het_n72,AndR,22,72,0.5215967860687646,0.04071857005844897,0.9997115473319025
+stria terminalis,stria terminalis,AndR_WT_n22_48Q_Het_n72,AndR,22,72,-0.5447433057480578,-1.0233344328649354,-0.06327128291175334
+Primary motor cortex,Primary motor area,AndR_WT_n22_48Q_Het_n72,AndR,22,72,-0.48956527481305356,-0.9670567187189701,-0.009472038663260582
+Medial entorhinal cortex,"Entorhinal area, medial part, ventral zone",AndR_WT_n22_48Q_Het_n72,AndR,22,72,-0.5178362948434256,-0.9958749430395485,-0.03705227340649918
+paramedian lobule (lobule 7),Paramedian lobule,AndR_WT_n22_48Q_Het_n72,AndR,22,72,-0.738807083155259,-1.2222978183606537,-0.2514910134115336
+CA10r,"Field CA1, stratum oriens",AndR_WT_n22_48Q_Het_n72,AndR,22,72,0.48312274095764696,0.0031821676565475113,0.9604942954284814
+globus pallidus,"Pallidum, dorsal region",AndR_WT_n22_48Q_n72,AndR,22,72,0.5215967860687646,0.04071857005844897,0.9997115473319025
+stria terminalis,stria terminalis,AndR_WT_n22_48Q_n72,AndR,22,72,-0.5447433057480578,-1.0233344328649354,-0.06327128291175334
+Primary motor cortex,Primary motor area,AndR_WT_n22_48Q_n72,AndR,22,72,-0.48956527481305356,-0.9670567187189701,-0.009472038663260582
+Medial entorhinal cortex,"Entorhinal area, medial part, ventral zone",AndR_WT_n22_48Q_n72,AndR,22,72,-0.5178362948434256,-0.9958749430395485,-0.03705227340649918
+paramedian lobule (lobule 7),Paramedian lobule,AndR_WT_n22_48Q_n72,AndR,22,72,-0.738807083155259,-1.2222978183606537,-0.2514910134115336
+CA10r,"Field CA1, stratum oriens",AndR_WT_n22_48Q_n72,AndR,22,72,0.48312274095764696,0.0031821676565475113,0.9604942954284814
+crus 1: ansiform lobule (lobule 6),Crus 1,Arhgef6_WT_M_n32_Arhgef6_M_n16,Arhgef6,32,16,0.653205446432781,0.044740438229239676,1.2549191306583327
+Primary somatosensory cortex: dysgranular zone,"Primary somatosensory area, trunk",Arhgef6_WT_M_n32_Arhgef6_M_n16,Arhgef6,32,16,0.7082708726138309,0.09698384020659531,1.3122966268739216
+Olfactory bulb: internal plexiform layer,"Main olfactory bulb, inner plexiform layer",Arhgef6_WT_M_n32_Arhgef6_M_n16,Arhgef6,32,16,-0.6241048531812174,-1.2246790713952178,-0.017053833683184742
+crus 1: ansiform lobule (lobule 6),Crus 1,Arhgef6_WT_F_n32_Arhgef6_F_n16,Arhgef6,32,16,0.653205446432781,0.044740438229239676,1.2549191306583327
+Primary somatosensory cortex: dysgranular zone,"Primary somatosensory area, trunk",Arhgef6_WT_F_n32_Arhgef6_F_n16,Arhgef6,32,16,0.7082708726138309,0.09698384020659531,1.3122966268739216
+Olfactory bulb: internal plexiform layer,"Main olfactory bulb, inner plexiform layer",Arhgef6_WT_F_n32_Arhgef6_F_n16,Arhgef6,32,16,-0.6241048531812174,-1.2246790713952178,-0.017053833683184742
+Frontal association cortex,"Frontal pole, cerebral cortex",Arid1b_WT_n33_Arid1b_n13,Arid1b,33,13,0.8835541808428158,0.22183218501311108,1.5360199138098853
+Primary motor cortex,Primary motor area,Arid1b_WT_n33_Arid1b_n13,Arid1b,33,13,-0.7403601663122857,-1.385762136509455,-0.08702425907487239
+CA10r,"Field CA1, stratum oriens",Arid1b_WT_n33_Arid1b_n13,Arid1b,33,13,0.7042919690986565,0.05287339151872482,1.348124072118096
+globus pallidus,"Pallidum, dorsal region",BALBC_WT_n9_BALBC_n12,BALBC,9,12,-1.001931075048499,-1.8783695765631645,-0.10256698945924507
+Rostral amygdalopiriform area,Piriform-amygdalar area,BALBC_WT_n9_BALBC_n12,BALBC,9,12,-0.9929983574687871,-1.8685127092281946,-0.09471235168254359
+Primary somatosensory cortex: upper lip region,"Primary somatosensory area, nose",BALBC_WT_n9_BALBC_n12,BALBC,9,12,0.9832016872438359,0.08609005084622146,1.8577124112946224
+copula: pyramis (lobule 8),Copula pyramidis,BALBC_WT_n9_BALBC_n12,BALBC,9,12,-0.9784185732669207,-1.8524427576335092,-0.08187704015461186
+CA1Rad,"Field CA1, stratum radiatum",BALBC_WT_n9_BALBC_n12,BALBC,9,12,0.9155725342976352,0.026324819705726456,1.7834324109002484
+Olfactory bulb: external plexiform layer,"Main olfactory bulb, outer plexiform layer",BALBC_WT_n9_BALBC_n12,BALBC,9,12,-0.8933724997840713,-1.7591565810199734,-0.006612964417697223
+"Accessory olfactory bulb: glomerular, external plexiform and mitral cell layer","Accessory olfactory bulb, glomerular layer",BALBC_WT_n9_BALBC_n12,BALBC,9,12,-1.1261640740976104,-2.0163118476503166,-0.2110635240572263
+Accessory olfactory bulb: granule cell layer,"Accessory olfactory bulb, granular layer",BALBC_WT_n9_BALBC_n12,BALBC,9,12,-0.9281652188579091,-1.7972262804970052,-0.03748547322530889
+fundus of striatum,Fundus of striatum,BTBR_WT_n24_BTBR_n12,BTBR,24,12,-0.9419143856069372,-1.6489663247182509,-0.22236555134505098
+Primary somatosensory cortex: upper lip region,"Primary somatosensory area, nose",BTBR_WT_n24_BTBR_n12,BTBR,24,12,-0.7390735418818798,-1.4337578096898818,-0.03421574809122753
+Temporal association area,Temporal association areas,BTBR_WT_n24_BTBR_n12,BTBR,24,12,0.7076435782729017,0.00480197844354106,1.4006957911112194
+fundus of striatum,Fundus of striatum,BTBR_FVB_n24_BTBR_n12,BTBR,24,12,-0.9419143856069372,-1.6489663247182509,-0.22236555134505098
+Primary somatosensory cortex: upper lip region,"Primary somatosensory area, nose",BTBR_FVB_n24_BTBR_n12,BTBR,24,12,-0.7390735418818798,-1.4337578096898818,-0.03421574809122753
+Temporal association area,Temporal association areas,BTBR_FVB_n24_BTBR_n12,BTBR,24,12,0.7076435782729017,0.00480197844354106,1.4006957911112194
+olfactory peduncle,Olfactory areas,Chd8_Basson_WT_n12_Chd8_n12,Chd8,12,12,0.8357404382959169,0.016565670755768484,1.6377232706573888
+Primary somatosensory cortex: hindlimb region,"Primary somatosensory area, lower limb",Chd8_Basson_WT_n12_Chd8_n12,Chd8,12,12,-0.8455729151510638,-1.6483521589981376,-0.0254361120507812
+Olfactory bulb: mitral cell layer,"Main olfactory bulb, mitral layer",Chd8_Basson_WT_n12_Chd8_n12,Chd8,12,12,0.947193938407361,0.11660577386102179,1.7587797417431805
+Insular region: not subdivided,Ectorhinal area,Chd8_Nord_WT_n18_Chd8_n19,Chd8,18,19,0.6575580717800654,0.003988574888053213,1.3022733167522065
+Primary auditory cortex,Primary auditory area,CNTNAP2_WT_n9_KO_n9,CNTNAP2,9,9,-1.1312766076548404,-2.078461353553142,-0.1546822021465786
+fundus of striatum,Fundus of striatum,CNTNAP2_WT_n9_KO_n9,CNTNAP2,9,9,-1.1881213929478622,-2.1428774887491455,-0.20298147501568667
+pontine nucleus,Pontine reticular nucleus,CNTNAP2_WT_n9_KO_n9,CNTNAP2,9,9,1.0416265558785667,0.07789005219164556,1.9776044340085681
+Secondary somatosensory cortex,Supplemental somatosensory area,CNTNAP2_WT_n9_KO_n9,CNTNAP2,9,9,0.9596474100555115,0.0069808074010200526,1.8861873844867685
+Olfactory bulb: granule cell layer,"Main olfactory bulb, granule layer",CNTNAP2_WT_n9_KO_n9,CNTNAP2,9,9,-1.086906426149585,-2.0284308008148164,-0.11677252664870305
+Primary motor cortex,Primary motor area,Dpyd_WT_n11_HET_n34,Dpyd,11,34,-0.7126988846874374,-1.393354790313649,-0.024162744738605243
+Primary somatosensory cortex: barrel field,"Primary somatosensory area, barrel field",Dpyd_WT_n11_HET_n34,Dpyd,11,34,0.7624874313399678,0.07132609725975371,1.4452738678209538
+Temporal association area,Temporal association areas,Dpyd_WT_n11_HET_n34,Dpyd,11,34,-0.7724322530229505,-1.4556630561796362,-0.08072889917784805
+Primary motor cortex,Primary motor area,Dpyd_WT_n11_HOM_n34,Dpyd,11,34,-0.7126988846874374,-1.393354790313649,-0.024162744738605243
+Primary somatosensory cortex: barrel field,"Primary somatosensory area, barrel field",Dpyd_WT_n11_HOM_n34,Dpyd,11,34,0.7624874313399678,0.07132609725975371,1.4452738678209538
+Temporal association area,Temporal association areas,Dpyd_WT_n11_HOM_n34,Dpyd,11,34,-0.7724322530229505,-1.4556630561796362,-0.08072889917784805
+crus 2: ansiform lobule (lobule 7),Crus 2,Dvl1_WT_n21_KO_n26,Dvl1,21,26,-0.5923469616556006,-1.1676224394684709,-0.010789144155029818
+subiculum,Subiculum,Dvl1_WT_n21_KO_n26,Dvl1,21,26,-0.6659950127421469,-1.244309560982168,-0.08069585819033984
+Olfactory bulb: glomerular layer,"Main olfactory bulb, glomerular layer",Dvl1_WT_n21_KO_n26,Dvl1,21,26,0.747780055689649,0.15790352794037227,1.3299217135255865
+colliculus: superior,"Superior colliculus, sensory related",En2_WT_n9_KO_n9,En2,2,9,1.165952405485609,0.18418072303757962,2.11771360381138
+Primary somatosensory cortex,Primary somatosensory area,En2_WT_n9_KO_n9,En2,2,9,-1.0662847745526263,-2.0052539455710767,-0.09908865683330897
+Medial parietal association cortex,Posterior parietal association areas,FMR1_FVB_WT_n10_KO_n10,FMR1,10,10,0.9259472159748611,0.02310418818638094,1.8061024147839089
+Ventral tenia tecta,"Taenia tecta, ventral part",FMR1_FVB_WT_n10_KO_n10,FMR1,10,10,1.1458566209023489,0.21462211776745915,2.0505795710163213
+Amygdalopiriform transition area,Postpiriform transition area,FOXP1_WT_n20_Het_n20,FOXP1,20,20,0.7249821549355827,0.09172072794565275,1.349347640888985
+Medial orbital cortex,"Orbital area, medial part",FOXP1_WT_n20_Het_n20,FOXP1,20,20,-0.6678148298617356,-1.289303959327285,-0.03805108481090183
+Olfactory bulb: external plexiform layer,"Main olfactory bulb, outer plexiform layer",FOXP1_WT_n20_Het_n20,FOXP1,20,20,0.6714480380507549,0.041468787357482995,1.2931124572436326
+Cingulate cortex: area 29b,"Retrosplenial area, ventral part",Gtf2i_WT_n20_YT_n38,Gtf2i,20,38,-0.5734483753277538,-1.1155522058893508,-0.026421323213069295
+Dorsal nucleus of the endopiriform,"Endopiriform nucleus, dorsal part",Gtf2i_WT_n20_YT_n38,Gtf2i,20,38,0.5634580205139709,0.01682711377787417,1.1052455507584273
+Secondary motor cortex,Secondary motor area,Gtf2i_WT_n20_YT_n38,Gtf2i,20,38,0.6212080729097422,0.07220691022502661,1.1649093515223814
+Primary somatosensory cortex: jaw region,"Primary somatosensory area, mouth",Gtf2i_WT_n20_YT_n38,Gtf2i,20,38,0.586741245317169,0.039178221763225836,1.1292755172335902
+subiculum,Subiculum,Gtf2i_WT_n20_YT_n38,Gtf2i,20,38,-0.6001504431349566,-1.1431300119648915,-0.05203622029133069
+Cingulate cortex: area 29b,"Retrosplenial area, ventral part",Gtf2i_WT_n20_XS_n38,Gtf2i,20,38,-0.5734483753277538,-1.1155522058893508,-0.026421323213069295
+Dorsal nucleus of the endopiriform,"Endopiriform nucleus, dorsal part",Gtf2i_WT_n20_XS_n38,Gtf2i,20,38,0.5634580205139709,0.01682711377787417,1.1052455507584273
+Secondary motor cortex,Secondary motor area,Gtf2i_WT_n20_XS_n38,Gtf2i,20,38,0.6212080729097422,0.07220691022502661,1.1649093515223814
+Primary somatosensory cortex: jaw region,"Primary somatosensory area, mouth",Gtf2i_WT_n20_XS_n38,Gtf2i,20,38,0.586741245317169,0.039178221763225836,1.1292755172335902
+subiculum,Subiculum,Gtf2i_WT_n20_XS_n38,Gtf2i,20,38,-0.6001504431349566,-1.1431300119648915,-0.05203622029133069
+Cingulate cortex: area 29b,"Retrosplenial area, ventral part",Hgsnat_WT_n33_Hgsnat_n16,Hgsnat,33,16,-0.778886630861126,-1.3831321025341492,-0.16690668193069017
+superior olivary complex,Superior olivary complex,Hgsnat_WT_n33_Hgsnat_n16,Hgsnat,33,16,-0.6154143855947877,-1.2127306410400533,-0.01183673491853081
+Secondary somatosensory cortex,Supplemental somatosensory area,Hgsnat_WT_n33_Hgsnat_n16,Hgsnat,33,16,0.6382210128186149,0.03357031950960149,1.2363981484631983
+Ventral tenia tecta,"Taenia tecta, ventral part",Hgsnat_WT_n33_Hgsnat_n16,Hgsnat,33,16,0.6929206599441098,0.08556430200160764,1.2933032750680573
+CA30r,"Field CA3, stratum oriens",Hgsnat_WT_n33_Hgsnat_n16,Hgsnat,33,16,0.7581667162519995,0.1473422581719047,1.3614372076240544
+olfactory peduncle,Olfactory areas,ITGB3_WT_n11_KO_n11,ITGB3,11,11,0.9822285164252571,0.11257960351071558,1.8304413487043723
+Cingulate cortex: area 32,Prelimbic area,ITGB3_WT_n11_KO_n11,ITGB3,11,11,0.9629428377582925,0.0955273006532954,1.8092439652627166
+Rostral amygdalopiriform area,Piriform-amygdalar area,ITGB3_WT_n11_KO_n11,ITGB3,11,11,-0.9135256052367166,-1.7551053202347602,-0.05167845068859613
+Primary somatosensory cortex: shoulder region,"Primary somatosensory area, trunk",ITGB3_WT_n11_KO_n11,ITGB3,11,11,-1.0617618146505914,-1.9182623148259412,-0.1825522576939392
+Cingulate cortex: area 24a,"Anterior cingulate area, ventral part",Magel2_WT_n6_Mut_n6,Magel2,6,6,-1.364012235721259,-2.537844236012847,-0.1393703992057055
+Caudomedial entorhinal cortex,"Entorhinal area, medial part, dorsal zone",Magel2_WT_n6_Mut_n6,Magel2,6,6,1.215856133908591,0.02293180295434016,2.3610813899674343
+Rostral amygdalopiriform area,Piriform-amygdalar area,Mecp2_p60_WT_n9_KO_n10,Mecp2,9,10,-1.0633143818221973,-1.9803972571354798,-0.11963879359569794
+Accessory olfactory bulb: granule cell layer,"Accessory olfactory bulb, granular layer",Mecp2_p60_WT_n9_KO_n10,Mecp2,9,10,-1.0504932240731206,-1.9660694745230287,-0.10855458832258272
+Cingulate cortex: area 24a',"Anterior cingulate area, ventral part",NF1_WT_n9_Het_n10,NF1,9,10,0.9658657970268754,0.03499850281156635,1.8719587703554965
+Olfactory bulb: glomerular layer,"Main olfactory bulb, glomerular layer",NF1_WT_n9_Het_n10,NF1,9,10,0.9986852175851157,0.06360654723352493,1.9083601122689235
+Cingulate cortex: area 29b,"Retrosplenial area, ventral part",Nhs_WT_n33_Nhs_n15,Nhs,33,15,-0.9019158694257894,-1.525291726834012,-0.2696130291240333
+Claustrum,Claustrum,Nhs_WT_n33_Nhs_n15,Nhs,33,15,0.8872180683353832,0.2558425023579446,1.5097447303859985
+Secondary somatosensory cortex,Supplemental somatosensory area,Nhs_WT_n33_Nhs_n15,Nhs,33,15,0.7695161253353179,0.1451415133338954,1.3860613020216008
+Dorsal tenia tecta,"Taenia tecta, dorsal part",NL1_WT_n26_KO_n27,NL1,26,27,-0.6144741290429115,-1.1553523414561921,-0.06786247743859275
+Ectorhinal cortex,Ectorhinal area,NL1_WT_n26_KO_n27,NL1,26,27,0.6073234003437605,0.061043298717054474,1.1479309044423476
+subependymale zone / rhinocele,subependymal zone,NL1_WT_n26_KO_n27,NL1,26,27,-0.5933811464703508,-1.1334705963089882,-0.04773802662452935
+Cingulate cortex: area 25,Infralimbic area,NL3_WT_n8_KO_n8,NL3,8,8,-1.0255966536873735,-2.0098994768100464,-0.010114105189516092
+Dorsal tenia tecta,"Taenia tecta, dorsal part",NRXN1a_WT_n10_Het_n22,NRXN1a,10,22,-0.7617687164618832,-1.5093295847770496,-0.002360202281095482
+cuneate nucleus,Cuneate nucleus,NRXN1a_WT_n10_Het_n22,NRXN1a,10,22,-0.8242842087820719,-1.5755923055369696,-0.0602920654077943
+paraflocculus (PFL),Paraflocculus,NRXN1a_WT_n10_Het_n22,NRXN1a,10,22,-1.1111639338649986,-1.8836551533728656,-0.32252873310175006
+Dorsal tenia tecta,"Taenia tecta, dorsal part",NRXN1a_WT_n10_KO_n22,NRXN1a,10,22,-0.7617687164618832,-1.5093295847770496,-0.002360202281095482
+cuneate nucleus,Cuneate nucleus,NRXN1a_WT_n10_KO_n22,NRXN1a,10,22,-0.8242842087820719,-1.5755923055369696,-0.0602920654077943
+paraflocculus (PFL),Paraflocculus,NRXN1a_WT_n10_KO_n22,NRXN1a,10,22,-1.1111639338649986,-1.8836551533728656,-0.32252873310175006
+superior olivary complex,Superior olivary complex,Raly_WT_n33_Raly_n12,Raly,33,12,-0.8770559660723091,-1.5472384112709516,-0.19743864266366637
+Piriform cortex,Piriform area,SERT_KI_WT_n20_KI_n20,SERT,20,20,0.7134546812853195,0.0809174977374373,1.3372196554371263
+Secondary auditory cortex: dorsal area,Dorsal auditory area,SERT_KI_129_WT_n21_KI_n21,SERT,21,21,-0.6550938273666608,-1.2616711969926186,-0.04078621348930997
+nucleus accumbens,Nucleus accumbens,SERT_KI_129_WT_n21_KI_n21,SERT,21,21,-0.6645341473527882,-1.2715481405356428,-0.04969010547602061
+subependymale zone / rhinocele,subependymal zone,SERT_KI_129_WT_n21_KI_n21,SERT,21,21,0.6838574738158333,0.0678957208651772,1.2917870858303586
+Rostral amygdalopiriform area,Piriform-amygdalar area,SERT_KO_WT_n19_KO_n20,SERT,19,20,-0.6778965411615178,-1.3076270782718085,-0.039555556700818055
+Secondary visual cortex: mediomedial area,Posterior parietal association areas,SGSH_WT_n33_SGSH_n14,SGSH,33,14,-0.8473904545634908,-1.481995243472561,-0.20407031624996952
+MoDG,"Dentate gyrus, molecular layer",SGSH_WT_n33_SGSH_n14,SGSH,33,14,-0.871962560169343,-1.5078615708724186,-0.22713319358177309
+Caudomedial entorhinal cortex,"Entorhinal area, medial part, dorsal zone",SHANK3_WT_n10_Het_n20,SHANK3,10,20,-1.1513008305761658,-1.939683846508463,-0.34526553255138165
+Primary somatosensory cortex: hindlimb region,"Primary somatosensory area, lower limb",SHANK3_WT_n10_Het_n20,SHANK3,10,20,-1.0774038956587801,-1.859158984667195,-0.2788442161851586
+MoDG,"Dentate gyrus, molecular layer",SHANK3_WT_n10_Het_n20,SHANK3,10,20,-1.0317695875053396,-1.809647741702292,-0.23763403528516958
+Caudomedial entorhinal cortex,"Entorhinal area, medial part, dorsal zone",SHANK3_WT_n10_KO_n20,SHANK3,10,20,-1.1513008305761658,-1.939683846508463,-0.34526553255138165
+Primary somatosensory cortex: hindlimb region,"Primary somatosensory area, lower limb",SHANK3_WT_n10_KO_n20,SHANK3,10,20,-1.0774038956587801,-1.859158984667195,-0.2788442161851586
+MoDG,"Dentate gyrus, molecular layer",SHANK3_WT_n10_KO_n20,SHANK3,10,20,-1.0317695875053396,-1.809647741702292,-0.23763403528516958
+Claustrum,Claustrum,TSC1_CON_n26_MUT_n33,TSC1,26,33,0.6727019628460174,0.14799903748886464,1.1918316538083282
+Dorsolateral orbital cortex,"Agranular insular area, dorsal part",TSC1_CON_n26_MUT_n33,TSC1,26,33,-0.6269607625517308,-1.1443473273403448,-0.1043431504911114
+Temporal association area,Temporal association areas,TSC1_CON_n26_MUT_n33,TSC1,26,33,0.7339285473020293,0.20624207581798504,1.2555950339340647
+SLu,"Field CA3, stratum lucidum",TSC1_CON_n26_MUT_n33,TSC1,26,33,-0.5830964286236082,-1.0989356779184414,-0.062361349464042135
+Ectorhinal cortex,Ectorhinal area,Turner_WT_M_n23_XO_n10,Turner,23,10,-1.011017814735123,-1.7701475564357152,-0.23732858485053898
+Intermediate nucleus of the endopiriform claustrum,"Endopiriform nucleus, dorsal part",Turner_WT_M_n23_XO_n10,Turner,23,10,1.1301657389010038,0.345662799334708,1.8988008750826229
+bed nucleus of stria terminalis,Bed nuclei of the stria terminalis,Turner_WT_M_n23_XO_n10,Turner,23,10,-0.7903044660873629,-1.5346784915755363,-0.034073734530812354
+Ectorhinal cortex,Ectorhinal area,Turner_WT_F_n23_XO_n10,Turner,23,10,-1.011017814735123,-1.7701475564357152,-0.23732858485053898
+Intermediate nucleus of the endopiriform claustrum,"Endopiriform nucleus, dorsal part",Turner_WT_F_n23_XO_n10,Turner,23,10,1.1301657389010038,0.345662799334708,1.8988008750826229
+bed nucleus of stria terminalis,Bed nuclei of the stria terminalis,Turner_WT_F_n23_XO_n10,Turner,23,10,-0.7903044660873629,-1.5346784915755363,-0.034073734530812354
+Olfactory bulb: granule cell layer,"Main olfactory bulb, granule layer",Cacnb2_WT_n11_Cacnb2_n15,Cacnb2,11,15,-0.7989806182046946,-1.5776017500260404,-0.005121331643555371
+Primary visual cortex,Primary visual area,Scn1a_WT_n10_Het_n10,Scn1a,10,10,1.378656651463423,0.4127342100616978,2.3148169669342096
+inferior olivary complex,Inferior olivary complex,16p11_Golzio_WT_n12_df_n26,16p11,12,26,0.739433707066188,0.04368329187507866,1.425549704247896
+Ventral tenia tecta,"Taenia tecta, ventral part",16p11_Golzio_WT_n12_df_n26,16p11,12,26,-0.8527262534289582,-1.5450900005264243,-0.14946167406997857
+inferior olivary complex,Inferior olivary complex,16p11_Golzio_WT_n12_dp_n26,16p11,12,26,0.739433707066188,0.04368329187507866,1.425549704247896
+Ventral tenia tecta,"Taenia tecta, ventral part",16p11_Golzio_WT_n12_dp_n26,16p11,12,26,-0.8527262534289582,-1.5450900005264243,-0.14946167406997857
+inferior olivary complex,Inferior olivary complex,16p11_Golzio_WT_n12_dfdp_n26,16p11,12,26,0.739433707066188,0.04368329187507866,1.425549704247896
+Ventral tenia tecta,"Taenia tecta, ventral part",16p11_Golzio_WT_n12_dfdp_n26,16p11,12,26,-0.8527262534289582,-1.5450900005264243,-0.14946167406997857
+Cingulate cortex: area 24b,"Anterior cingulate area, dorsal part",Kctd13_Golzio_WT_n19_Het_n40,Kctd13,19,40,-0.5952900981074529,-1.1425747427917667,-0.042991694065571205
+Caudomedial entorhinal cortex,"Entorhinal area, medial part, dorsal zone",Kctd13_Golzio_WT_n19_Het_n40,Kctd13,19,40,-0.6102195799534654,-1.157995072115742,-0.05731427042172634
+Dorsolateral orbital cortex,"Agranular insular area, dorsal part",Kctd13_Golzio_WT_n19_Het_n40,Kctd13,19,40,0.6403094083618445,0.08614252083468155,1.1891147676073321
+subependymale zone / rhinocele,subependymal zone,Kctd13_Golzio_WT_n19_Het_n40,Kctd13,19,40,-0.7121645298020108,-1.2636473645031132,-0.15477906912748507
+Olfactory bulb: glomerular layer,"Main olfactory bulb, glomerular layer",Kctd13_Golzio_WT_n19_Het_n40,Kctd13,19,40,0.7202824431576,0.1625153119294695,1.272086834928115
+Cingulate cortex: area 24b,"Anterior cingulate area, dorsal part",Kctd13_Golzio_WT_n19_Hom_n40,Kctd13,19,40,-0.5952900981074529,-1.1425747427917667,-0.042991694065571205
+Caudomedial entorhinal cortex,"Entorhinal area, medial part, dorsal zone",Kctd13_Golzio_WT_n19_Hom_n40,Kctd13,19,40,-0.6102195799534654,-1.157995072115742,-0.05731427042172634
+Dorsolateral orbital cortex,"Agranular insular area, dorsal part",Kctd13_Golzio_WT_n19_Hom_n40,Kctd13,19,40,0.6403094083618445,0.08614252083468155,1.1891147676073321
+subependymale zone / rhinocele,subependymal zone,Kctd13_Golzio_WT_n19_Hom_n40,Kctd13,19,40,-0.7121645298020108,-1.2636473645031132,-0.15477906912748507
+Olfactory bulb: glomerular layer,"Main olfactory bulb, glomerular layer",Kctd13_Golzio_WT_n19_Hom_n40,Kctd13,19,40,0.7202824431576,0.1625153119294695,1.272086834928115
+anterior lobule  (lobules 4-5),Lobules IV-V,Chd8_Kim_WT_n30_Chd8_n30,Chd8,30,30,-0.5158139185933179,-1.0218570296926226,-0.005478172006503295
+crus 2: ansiform lobule (lobule 7),Crus 2,Chd8_Kim_WT_n30_Chd8_n30,Chd8,30,30,0.6615520963181017,0.14513019941112754,1.1725814659634988
+olfactory peduncle,Olfactory areas,Kctd13_WT_n23_Het_n43,Kctd13,23,43,0.5974195314124342,0.08427559560537869,1.106087745900609
+Cingulate cortex: area 29b,"Retrosplenial area, ventral part",Kctd13_WT_n23_Het_n43,Kctd13,23,43,0.5573671633418488,0.045717195077319306,1.0648196575900264
+Frontal association cortex,"Frontal pole, cerebral cortex",Kctd13_WT_n23_Het_n43,Kctd13,23,43,-0.5677078776326346,-1.0754656162530247,-0.055681015272242326
+Lateral orbital cortex,"Orbital area, lateral part",Kctd13_WT_n23_Het_n43,Kctd13,23,43,0.5162471937631281,0.006039361038030491,1.0225485476266822
+anterior lobule  (lobules 4-5),Lobules IV-V,Kctd13_WT_n23_Het_n43,Kctd13,23,43,0.5249622809722566,0.014456655342710234,1.0314994058210623
+olfactory peduncle,Olfactory areas,Kctd13_WT_n23_KO_n43,Kctd13,23,43,0.5974195314124342,0.08427559560537869,1.106087745900609
+Cingulate cortex: area 29b,"Retrosplenial area, ventral part",Kctd13_WT_n23_KO_n43,Kctd13,23,43,0.5573671633418488,0.045717195077319306,1.0648196575900264
+Frontal association cortex,"Frontal pole, cerebral cortex",Kctd13_WT_n23_KO_n43,Kctd13,23,43,-0.5677078776326346,-1.0754656162530247,-0.055681015272242326
+Lateral orbital cortex,"Orbital area, lateral part",Kctd13_WT_n23_KO_n43,Kctd13,23,43,0.5162471937631281,0.006039361038030491,1.0225485476266822
+anterior lobule  (lobules 4-5),Lobules IV-V,Kctd13_WT_n23_KO_n43,Kctd13,23,43,0.5249622809722566,0.014456655342710234,1.0314994058210623
+Dorsal nucleus of the endopiriform,"Endopiriform nucleus, dorsal part",Ube3a_Dup_WT_n13_tTA_n33,Ube3a,13,33,-0.7380476452113882,-1.3833464961499855,-0.08483704861835731
+anterior lobule  (lobules 4-5),Lobules IV-V,Ube3a_Dup_WT_n13_tTA_n33,Ube3a,13,33,0.7357288547236511,0.08264367871224272,1.3809246095014052
+cuneate nucleus,Cuneate nucleus,Ube3a_Dup_WT_n13_tTA_n33,Ube3a,13,33,0.680359002268725,0.030168639832538043,1.3231965868430355
+Dorsal nucleus of the endopiriform,"Endopiriform nucleus, dorsal part",Ube3a_Dup_WT_n13_TRE_n33,Ube3a,13,33,-0.7380476452113882,-1.3833464961499855,-0.08483704861835731
+anterior lobule  (lobules 4-5),Lobules IV-V,Ube3a_Dup_WT_n13_TRE_n33,Ube3a,13,33,0.7357288547236511,0.08264367871224272,1.3809246095014052
+cuneate nucleus,Cuneate nucleus,Ube3a_Dup_WT_n13_TRE_n33,Ube3a,13,33,0.680359002268725,0.030168639832538043,1.3231965868430355
+Dorsal nucleus of the endopiriform,"Endopiriform nucleus, dorsal part",Ube3a_Dup_WT_n13_Dup15_n33,Ube3a,13,33,-0.7380476452113882,-1.3833464961499855,-0.08483704861835731
+anterior lobule  (lobules 4-5),Lobules IV-V,Ube3a_Dup_WT_n13_Dup15_n33,Ube3a,13,33,0.7357288547236511,0.08264367871224272,1.3809246095014052
+cuneate nucleus,Cuneate nucleus,Ube3a_Dup_WT_n13_Dup15_n33,Ube3a,13,33,0.680359002268725,0.030168639832538043,1.3231965868430355
+Cingulate cortex: area 24b,"Anterior cingulate area, dorsal part",Taok2_WT_n16_Het_n36,Taok2,16,36,-0.8332819806547687,-1.431871793644478,-0.2269636517947758
+amygdala,Cortical subplate,Taok2_WT_n16_Het_n36,Taok2,16,36,0.6531617954493375,0.056148185598502,1.2439493779031403
+Posterolateral cortical amygdaloid area,"Cortical amygdalar area, posterior part, lateral zone",Taok2_WT_n16_Het_n36,Taok2,16,36,-0.611718961069487,-1.2009990675990965,-0.016576101016479418
+Ventral tenia tecta,"Taenia tecta, ventral part",Taok2_WT_n16_Het_n36,Taok2,16,36,0.7578335252794586,0.15564204618545735,1.3529101908758616
+simple lobule (lobule 6),Simple lobule,Taok2_WT_n16_Het_n36,Taok2,16,36,0.6727780051774781,0.07484310440296336,1.2643170934460535
+SLu,"Field CA3, stratum lucidum",Taok2_WT_n16_Het_n36,Taok2,16,36,-0.6580413336008484,-1.249013577482165,-0.060800717445953306
+Anterior olfactory nucleus,Anterior olfactory nucleus,Taok2_WT_n16_Het_n36,Taok2,16,36,-0.6126068387981676,-1.201918059574769,-0.017424954688099323
+Cingulate cortex: area 24b,"Anterior cingulate area, dorsal part",Taok2_WT_n16_KO_n36,Taok2,16,36,-0.8332819806547687,-1.431871793644478,-0.2269636517947758
+amygdala,Cortical subplate,Taok2_WT_n16_KO_n36,Taok2,16,36,0.6531617954493375,0.056148185598502,1.2439493779031403
+Posterolateral cortical amygdaloid area,"Cortical amygdalar area, posterior part, lateral zone",Taok2_WT_n16_KO_n36,Taok2,16,36,-0.611718961069487,-1.2009990675990965,-0.016576101016479418
+Ventral tenia tecta,"Taenia tecta, ventral part",Taok2_WT_n16_KO_n36,Taok2,16,36,0.7578335252794586,0.15564204618545735,1.3529101908758616
+simple lobule (lobule 6),Simple lobule,Taok2_WT_n16_KO_n36,Taok2,16,36,0.6727780051774781,0.07484310440296336,1.2643170934460535
+SLu,"Field CA3, stratum lucidum",Taok2_WT_n16_KO_n36,Taok2,16,36,-0.6580413336008484,-1.249013577482165,-0.060800717445953306
+Anterior olfactory nucleus,Anterior olfactory nucleus,Taok2_WT_n16_KO_n36,Taok2,16,36,-0.6126068387981676,-1.201918059574769,-0.017424954688099323
+nucleus accumbens,Nucleus accumbens,16p11_Zsu_Wt_n29_Mut_n30,16p11,29,30,0.5617403575383438,0.04532044054974401,1.0734323573562148
+Primary somatosensory cortex: shoulder region,"Primary somatosensory area, trunk",16p11_Zsu_Wt_n29_Mut_n30,16p11,29,30,-0.575399679396364,-1.087545345512558,-0.05842034812080819
+subependymale zone / rhinocele,subependymal zone,16p11_Zsu_Wt_n29_Mut_n30,16p11,29,30,0.5487226472923046,0.032825464524654575,1.0599935942491006
+Cingulate cortex: area 24a',"Anterior cingulate area, ventral part",Nphp1_WT_n7_Tg_n9,Nphp1,7,9,-1.1838799222974505,-2.1964378742744186,-0.13683884730960483
+Primary somatosensory cortex: upper lip region,"Primary somatosensory area, nose",Nphp1_WT_n7_Tg_n9,Nphp1,7,9,-1.2273234573269798,-2.2463047978137944,-0.17305896638001655
+Ventral orbital cortex,"Orbital area, ventrolateral part",Nphp1_WT_n7_Tg_n9,Nphp1,7,9,-1.0787078304036168,-2.0766398232381764,-0.048385520574872144
+striatum,Caudoputamen,Lat_WT_n9_Het_n21,Lat,9,21,-0.8757101847178903,-1.6618486161171233,-0.07525584842726847
+Cingulate cortex: area 29c,"Retrosplenial area, ventral part",Lat_WT_n9_Het_n21,Lat,9,21,1.0054675893183784,0.19376760715946045,1.8011385070837937
+CA3Rad,"Field CA3, stratum radiatum",Lat_WT_n9_Het_n21,Lat,9,21,-0.7974277411623483,-1.5784845478188438,-0.003154069841047776
+MoDG,"Dentate gyrus, molecular layer",Lat_WT_n9_Het_n21,Lat,9,21,0.8896046776099582,0.08800521984751221,1.6766983788005208
+striatum,Caudoputamen,Lat_WT_n9_Hom_n21,Lat,9,21,-0.8757101847178903,-1.6618486161171233,-0.07525584842726847
+Cingulate cortex: area 29c,"Retrosplenial area, ventral part",Lat_WT_n9_Hom_n21,Lat,9,21,1.0054675893183784,0.19376760715946045,1.8011385070837937
+CA3Rad,"Field CA3, stratum radiatum",Lat_WT_n9_Hom_n21,Lat,9,21,-0.7974277411623483,-1.5784845478188438,-0.003154069841047776
+MoDG,"Dentate gyrus, molecular layer",Lat_WT_n9_Hom_n21,Lat,9,21,0.8896046776099582,0.08800521984751221,1.6766983788005208
+Amygdalopiriform transition area,Postpiriform transition area,Setd5_WT_n12_Het_n11,Setd5,12,11,1.079284074307251,0.21569228981163183,1.9209501849026631
+Primary somatosensory cortex: jaw region,"Primary somatosensory area, mouth",Setd5_WT_n12_Het_n11,Setd5,12,11,0.9355571909614462,0.0885610551174042,1.7628565082964194
+subiculum,Subiculum,Setd5_WT_n12_Het_n11,Setd5,12,11,0.9233740524131161,0.07770158629557118,1.7495507846438898
+Claustrum: dorsal part,Claustrum,Cul3_WT_n18_Het_n20,Cul3,18,20,-0.7277744154840308,-1.3685829147317892,-0.0775479782873662
+flocculus (FL),Flocculus,Cul3_WT_n18_Het_n20,Cul3,18,20,-0.7685745533886273,-1.4116561578950677,-0.11562066629316928
+Claustrum: ventral part,Claustrum,Cul3_WT_n18_Het_n20,Cul3,18,20,-0.6994926793699229,-1.3388030967411382,-0.051085377845687806
+Ventral tenia tecta,"Taenia tecta, ventral part",Cul3_WT_n18_Het_n20,Cul3,18,20,0.828995374793203,0.17178141337219247,1.4756841167044805
+CA3Py Outer,"Field CA3, pyramidal layer",Cul3_WT_n18_Het_n20,Cul3,18,20,-0.7676069797185071,-1.410633239552615,-0.11471918235957757
+CA3Rad,"Field CA3, stratum radiatum",Cul3_WT_n18_Het_n20,Cul3,18,20,-0.7102728266715271,-1.3501468041049869,-0.06117912319526658
+SLu,"Field CA3, stratum lucidum",Cul3_WT_n18_Het_n20,Cul3,18,20,-0.7853593146311599,-1.4294143977044076,-0.13124822979276285
+Accessory olfactory bulb: granule cell layer,"Accessory olfactory bulb, granular layer",Cul3_WT_n18_Het_n20,Cul3,18,20,-0.7440672379350847,-1.385767557459719,-0.09276623516280659
+Cingulate cortex: area 24a',"Anterior cingulate area, ventral part",mvpXkctd13_Kctd13W_MvpW_n19_Kctd13H_MvpH_n45,mvpXkctd13,19,45,0.5513141694763376,0.010667932468027858,1.0876607853573754
+Cingulate cortex: area 29c,"Retrosplenial area, ventral part",mvpXkctd13_Kctd13W_MvpW_n19_Kctd13H_MvpH_n45,mvpXkctd13,19,45,0.7365014011308867,0.18841158105308722,1.2789831745082667
+globus pallidus,"Pallidum, dorsal region",mvpXkctd13_Kctd13W_MvpW_n19_Kctd13H_MvpH_n45,mvpXkctd13,19,45,0.5483750302215571,0.007832149767841034,1.0846398391485135
+stria terminalis,stria terminalis,mvpXkctd13_Kctd13W_MvpW_n19_Kctd13H_MvpH_n45,mvpXkctd13,19,45,0.8226736407674031,0.2705089340133264,1.368656293534547
+Cingulate cortex: area 24a',"Anterior cingulate area, ventral part",latXkctd13_Kctd13Wt_LatWt_n19_Kctd13Het_LatHet_n22,latXkctd13,19,22,0.5513141694763376,0.010667932468027858,1.0876607853573754
+Cingulate cortex: area 29c,"Retrosplenial area, ventral part",latXkctd13_Kctd13Wt_LatWt_n19_Kctd13Het_LatHet_n22,latXkctd13,19,22,0.7365014011308867,0.18841158105308722,1.2789831745082667
+globus pallidus,"Pallidum, dorsal region",latXkctd13_Kctd13Wt_LatWt_n19_Kctd13Het_LatHet_n22,latXkctd13,19,22,0.5483750302215571,0.007832149767841034,1.0846398391485135
+stria terminalis,stria terminalis,latXkctd13_Kctd13Wt_LatWt_n19_Kctd13Het_LatHet_n22,latXkctd13,19,22,0.8226736407674031,0.2705089340133264,1.368656293534547
+olfactory peduncle,Olfactory areas,Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.7085674079152958,0.0823042876217771,1.3263297569352248
+striatum,Caudoputamen,Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.8029416774605823,0.17060666904918276,1.4258062244433762
+Cingulate cortex: area 25,Infralimbic area,Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.6292610889655069,0.007611500174536879,1.2432628381865725
+Claustrum,Claustrum,Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.7566867993545477,0.1274067848783612,1.3769659863181207
+stria terminalis,stria terminalis,Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.852852842870936,0.21706165005618808,1.4786846833363332
+Intermediate nucleus of the endopiriform claustrum,"Endopiriform nucleus, dorsal part",Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.8401499200664122,0.20525508134181977,1.4652086270971463
+Lateral orbital cortex,"Orbital area, lateral part",Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.6491799310654096,0.026414067093091853,1.2640804155069032
+Lateral parietal association cortex,Posterior parietal association areas,Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,-0.7680080410615666,-1.388904879676666,-0.13799442170236279
+crus 1: ansiform lobule (lobule 6),Crus 1,Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.7515639051631215,0.12261265094914456,1.3715667667541038
+Primary somatosensory cortex: shoulder region,"Primary somatosensory area, trunk",Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,-0.8435599494051116,-1.4688248753681756,-0.20842566834361245
+Primary somatosensory cortex: trunk region,"Primary somatosensory area, trunk",Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,-0.75233920440581,-1.3723837462111184,-0.12333816826688054
+Secondary visual cortex: mediolateral area,Anteromedial visual area,Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,-0.742220954764905,-1.3617249701198904,-0.1138647256153666
+Ventral orbital cortex,"Orbital area, ventrolateral part",Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.6236235426829241,0.002284596554676423,1.2373764932349274
+stria medullaris,stria medullaris,Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.7548790374618195,0.12571510592311297,1.3750604722259103
+subependymale zone / rhinocele,subependymal zone,Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.9108092490618879,0.27079126015560906,1.5403174999264921
+CA3Py Inner,"Field CA3, pyramidal layer",Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.7581704318268739,0.1287946563301265,1.378529981995133
+CA30r,"Field CA3, stratum oriens",Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.9155892274892855,0.27521265487217433,1.5454115899855059
+MoDG,"Dentate gyrus, molecular layer",Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.7706781522834938,0.14049018938815136,1.3917221204641872
+GrDG,"Dentate gyrus, granule cell layer",Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.8463956512613536,0.21106145955821706,1.4718328617081649
+PoDG,"Dentate gyrus, granule cell layer",Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.8394916221000016,0.2046428626346608,1.4645106798769885
+Olfactory bulb: internal plexiform layer,"Main olfactory bulb, inner plexiform layer",Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.6430113400186982,0.020594211925038193,1.2576302642434156
+Olfactory bulb: granule cell layer,"Main olfactory bulb, granule layer",Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.7386291358160191,0.11050023472916995,1.357943237305059
+Anterior olfactory nucleus,Anterior olfactory nucleus,Tbr1_WT_n9_Tbr_n9,Tbr1,9,9,0.7459597371290795,0.1173661250671202,1.3656626600393453
+Cingulate cortex: area 24b,"Anterior cingulate area, dorsal part",VPA_WT_n6_VPA_n20,VPA,6,20,1.102142369394234,0.1298109368045049,2.045585574281022
+Cingulate cortex: area 29c,"Retrosplenial area, ventral part",VPA_WT_n6_VPA_n20,VPA,6,20,0.9517905051402337,1.4945264633884728e-4,1.877467628823154
+Primary somatosensory cortex,Primary somatosensory area,VPA_WT_n6_VPA_n20,VPA,6,20,-0.9977300199025313,-1.9285562637248341,-0.04000429477616613
+Primary somatosensory cortex: upper lip region,"Primary somatosensory area, nose",VPA_WT_n6_VPA_n20,VPA,6,20,-1.0004471444096894,-1.9315857512356962,-0.04235488960389883
+Temporal association area,Temporal association areas,VPA_WT_n6_VPA_n20,VPA,6,20,-1.1591416891890518,-2.1099934417020454,-0.17839572211251017
+bed nucleus of stria terminalis,Bed nuclei of the stria terminalis,VPA_WT_n6_VPA_n20,VPA,6,20,1.047708323298383,0.08312357137824984,1.9844176861481375
+basal forebrain,"Pallidum, ventral region",Syngap1_WT_n0_Het_n0,Syngap1,0,0,-1.0849411099105624,-2.009580679413905,-0.140154404905179
+nucleus accumbens,Nucleus accumbens,Syngap1_WT_n0_Het_n0,Syngap1,0,0,-0.9726988046033781,-1.8883606018332244,-0.038600130141656405
+Intermediate nucleus of the endopiriform claustrum,"Endopiriform nucleus, dorsal part",Syngap1_WT_n0_Het_n0,Syngap1,0,0,-1.2421816637636622,-2.1810909144291553,-0.28092382438787117
+Ventral orbital cortex,"Orbital area, ventrolateral part",Syngap1_WT_n0_Het_n0,Syngap1,0,0,-0.9492387278376717,-1.8631539390223097,-0.01725788568354592
+CA3Rad,"Field CA3, stratum radiatum",Syngap1_WT_n0_Het_n0,Syngap1,0,0,-0.9331935013110312,-1.8459405731790037,-0.0026374536619001403

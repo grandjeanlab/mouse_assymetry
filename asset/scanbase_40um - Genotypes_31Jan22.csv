@@ -1,0 +1,281 @@
+"Study_Name","Is_Wildtype","Genotype_Code","Genotype","MGI_Genotype","Background","MGI_Background","JAX_Number","Anxiety_by_Genotype","Cardiac_phenotype"
+"Dvl1","WT","WT","Dvl1 (+/+)","NA","129S6","NA","NA","No","N"
+"Dvl1","MUT","KO","Dvl1 (-/-)","Dvl1tm1Awb/Dvl1tm1Awb","129S6","B6.129S6-Dvl1tm1Awb/J",7965,"Absent","Ab"
+"SERT_KI_129","WT","WT","Slc6a4 (+/+)","NA","129S6","NA","NA","No","N"
+"SERT_KI_129","MUT","KI","Slc6a4 (G56A KI/G56A KI)","Slc6a4tm2.1Rbl/Slc6a4tm2.1Rbl","129S6","129S6-Slc6a4tm2.1Rbl","NA","Absent","TBD"
+"DAT","WT","WT","Slc6a3 (+/+)","NA","129S6xC57BL6/J","NA","NA","No","N"
+"DAT","MUT","HET","Slc6a3 (+/Val559)","NA","129S6xC57BL6/J","NA","NA","Yes","CHD"
+"DAT","MUT","HMZ","Slc6a3 (Val559/Val559)","NA","129S6xC57BL6/J","NA","NA","Yes","CHD"
+"NF1","WT","WT","Nf1 (+/+)","NA","B6/129F1","NA","NA","No","N"
+"NF1","MUT","Het","Nf1 (+/-)","Nf1tm1Cbr/Nf1+","B6/129F1","B6.129S1-Nf1tm1Cbr/J",7923,"Absent","CHD"
+"16p11","WT","WT","16p11.2 (+/+)","NA","B6/129F2","NA","NA","No","N"
+"16p11","MUT","df","16p11.2 (df/+)","Del(7Slx1b-Sept1)4Aam/+","B6/129F2","B6129S-Del(7Slx1b-Sept1)4Aam/J",13128,"Mixed","TBD"
+"16p11","MUT","dp","16p11.2 (dp/+)","Dp(7Slx1b-Sept1)5Aam/+","B6/129F2","B6129S-Dp(7Slx1b-Sept1)5Aam/J",13129,"Absent","Ab"
+"16p11_Golzio","WT","WT","16p11.2 (+/+)","NA","B6/129F2","NA","NA","No","N"
+"16p11_Golzio","MUT","df","16p11.2 (df/+)","NA","B6/129F2","B6129S-Del(7Slx1b-Sept1)4Aam/J",13128,"Mixed","TBD"
+"16p11_Golzio","MUT","dp","16p11.2 (dp/+)","NA","B6/129F2","B6129S-Dp(7Slx1b-Sept1)5Aam/J",13129,"Absent","Ab"
+"16p11_Golzio","MUT","dfdp","16p11.2 (df/dp)","NA","B6/129F2","NA","NA","Absent","TBD"
+"16p11_Zsu","WT","Wt","16p11.2 (+/+)","NA","B6/129F2","NA","NA","No","N"
+"16p11_Zsu","MUT","Mut","16p11.2 (df/+)","NA","B6/129F2","B6129S-Del(7Slx1b-Sept1)4Aam/J",13128,"Mixed","TBD"
+"ITGB3","WT","WT","Itgb3 (+/+)","NA","B6/129F2","NA","NA","No","N"
+"ITGB3","MUT","KO","Itgb3 (-/-)","Itgb3tm1Hyn/Itgb3tm1Hyn","B6/129F2","B6;129S2-Itgb3tm1Hyn/J",8819,"Mixed","N"
+"NL1","WT","WT","Nlgn1 (+/+)","NA","B6/SV129","NA","NA","No","N"
+"NL1","MUT","KO","Nlgn1 (-/-)","NA","B6/SV129","B6;129-Nlgn1tm1Bros/J",8136,"No","N"
+"NRXN1a","WT","WT","Nrxn1 (+/+)","NA","B6/SV129","NA","NA","No","N"
+"NRXN1a","MUT","Het","Nrxn1 (+/-)","NA","B6/SV129","B6;129-Nrxn1tm1Sud/J","NA","Yes","N"
+"NRXN1a","MUT","KO","Nrxn1 (-/-)","NA","B6/SV129","B6;129-Nrxn1tm1Sud/J","NA","Yes","N"
+"NL3","WT","WT","Nlgn3 (+/Y)","NA","B6129SF2/J","NA","NA","No","N"
+"NL3","MUT","KO","Nlgn3 (R451C KI/Y)","Nlgn3tm1Sud/Y","B6129SF2/J","B6;129-Nlgn3tm1Sud/J",8475,"No","N"
+"Turner","WT","WT_M","Turner (XY)","NA","B6CBACaF1/J-Aw-J/A","NA","NA","No","N"
+"Turner","WT","WT_F","Turner (XX)","NA","B6CBACaF1/J-Aw-J/A","NA","NA","No","N"
+"Turner","MUT","XO","Turner (XO)","NA","B6CBACaF1/J-Aw-J/A","B6CBACa Aw-J/A-EdaTa/J-XO","NA","Mixed","Ab"
+"CHD7_Het","WT","Chd7++","Chd7 (+/+)","NA","B6D2F1","NA","NA","No","N"
+"CHD7_Het","MUT","Chd7gt+","Chd7 (+/gt)","NA","B6D2F1","NA","NA","No","CHD"
+"BALBC","MUT","BALBC","NA","NA","BALB/cJ","NA",651,"Yes","Ab"
+"Foster_immunostrains","MUT","BalbC","NA","NA","BALB/cJ","NA","NA","NA","NA"
+"BTBR","MUT","BTBR","NA","NA","BTBR","BTBR T+ Itpr3tf/J",2282,"Mixed","Ab"
+"Chd8_Kim","WT","WT","Chd8 (+/+)","NA","C57BL/6","NA","NA","No","Ab"
+"Chd8_Kim","MUT","Chd8","Chd8 (+/-)","NA","C57BL/6","NA","NA","Yes","Ab"
+"15q","WT","WT","15q11-13 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"15q","MUT","pDp","15q11-13 (patDp/+)","PatDp(7Herc2-Mkrn3)1Taku/+","C57BL/6J","B6.129S7-Dp(7Herc2-Mkrn3)1Taku","NA","Yes","Ab"
+"15q_wMat","WT","WT","15q11-13 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"15q_wMat","MUT","MDp","15q11-13 (matDp/+)","MatDp(7Herc2-Mkrn3)1Taku/+","C57BL/6J","B6.129S7-Dp(7Herc2-Mkrn3)1Taku","NA","No","Ab"
+"15q25","WT","WT","15q25.2 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"15q25","MUT","Mut","15q25.2 (df/+)","NA","C57BL/6J","NA","NA","Yes","Ab"
+"22q11","WT","WT","22q11.2 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"22q11","MUT","DEL","22q11.2 (df/+)","Del(16Dgcr2-Hira)3Aam/+","C57BL/6J","B6.129S7-Del(16Dgcr2-Hira)3Aam","NA","Yes","Ab"
+"AndR","WT","WT","AndR (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"AndR","MUT","12Q","Ar (12Q/12Q)","NA","C57BL/6J","NA","NA","Absent","Ab"
+"AndR","MUT","12Q_Het","Ar (12Q/+)","NA","C57BL/6J","NA","NA","Absent","Ab"
+"AndR","MUT","21Q","Ar (21Q/21Q)","NA","C57BL/6J","NA","NA","Absent","Ab"
+"AndR","MUT","21Q_Het","Ar (21Q/+)","NA","C57BL/6J","NA","NA","Absent","Ab"
+"AndR","MUT","48Q","Ar (48Q/48Q)","NA","C57BL/6J","NA","NA","Absent","Ab"
+"AndR","MUT","48Q_Het","Ar (48Q/+)","NA","C57BL/6J","NA","NA","Absent","Ab"
+"BALBC","WT","WT","NA","NA","C57BL/6J","NA","NA","No","Ab"
+"BTBR","WT","WT","NA","NA","C57BL/6J","NA","NA","No","Ab"
+"CASPR2","WT","WT","Cntnap2 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"CASPR2","MUT","Hetero","Cntnap2 (+/-)","NA","C57BL/6J","B6.129(Cg)-Cntnap2tm1Pele/J",17482,"Mixed","N"
+"CASPR2","MUT","Homo","Cntnap2 (-/-)","NA","C57BL/6J","B6.129(Cg)-Cntnap2tm1Pele/J",17482,"Mixed","N"
+"CHD7_En1Cre","MUT","Chd7ff","Chd7 (flox/flox)","NA","C57BL/6J","NA","NA","No","CHD"
+"CHD7_En1Cre","MUT","En1Cre","En1Cre;Chd7 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"CHD7_En1Cre","MUT","En1CreChd7f+","En1Cre;Chd7 (+/flox)","NA","C57BL/6J","NA","NA","No","CHD"
+"CHD7_En1Cre","MUT","En1CreChd7ff","En1Cre;Chd7 (flox/flox)","NA","C57BL/6J","NA","NA","No","CHD"
+"Chd8_Basson","WT","WT","Chd8 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"Chd8_Basson","MUT","Chd8","Chd8 (+/-)","NA","C57BL/6J","NA","NA","Yes","Ab"
+"CNTNAP2","WT","WT","Cntnap2 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"CNTNAP2","MUT","KO","Cntnap2 (-/-)","NA","C57BL/6J","B6.129(Cg)-Cntnap2tm1Pele/J","NA","Mixed","N"
+"En2","WT","WT","En2 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"En2","MUT","KO","En2 (-/-)","NA","C57BL/6J","B6;129S2-En2tm1Alj/J",2657,"No","N"
+"FMR1","WT","WT","Fmr1 (+/Y)","NA","C57BL/6J","NA","NA","No","TBD"
+"FMR1","MUT","KO_M","Fmr1 (-/Y)","Fmr1tm1Cgr/Y","C57BL/6J","B6.129P2-Fmr1tm1Cgr/J",3025,"Mixed","TBD"
+"FMR1","MUT","KO_F","Fmr1 (-/-)","Fmr1tm1Cgr/Fmr1tm1Cgr","C57BL/6J","B6.129P2-Fmr1tm1Cgr/J",3025,"Mixed","TBD"
+"FOXP1","WT","WT","Foxp1 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"FOXP1","MUT","Het","Foxp1 (+/cKO)","NA","C57BL/6J","NA","NA","Mixed","N"
+"Magel2","WT","WT","Magel2 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"Magel2","MUT","Mut","Magel2 (-/-)","Magel2tm1Stw/Magel2tm1Stw","C57BL/6J","C57BL/6-Magel2tm1Stw/J",9062,"No","N"
+"MAR","WT","WT","C57BL/6J","NA","C57BL/6J","NA","NA","No","NA"
+"MAR","WT","MAR","C57BL/6J/MAR","NA","C57BL/6J","NA","NA","No","NA"
+"Mecp2_p60","WT","WT","Mecp2 (+/Y)","NA","C57BL/6J","NA","NA","No","N"
+"Mecp2_p60","MUT","KO","Mecp2 (308/Y)","Mecp2tm1Hzo/Mecp2tm1Hzo","C57BL/6J","B6.129S-Mecp2tm1Hzo/J",5439,"Mixed","N"
+"MET","WT","WT","Met (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"MET","MUT","Nestin","NestinCre;Met (+/+)","NA","C57BL/6J","NA","NA","Absent","N"
+"MET","MUT","Het","NestinCre;Met (+/flox)","NA","C57BL/6J","NA","NA","Absent","Ab"
+"MET","MUT","Hom","NestinCre;Met (flox/flox)","NA","C57BL/6J","NA","NA","Absent","N"
+"Nphp1","WT","WT","2q13 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"Nphp1","MUT","Tg","2q13 (dp/+)","NA","C57BL/6J","NA","NA","Mixed","Ab"
+"PTEN","WT","WT","Pten (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"PTEN","MUT","KO","Pten (-/-)","NA","C57BL/6J","NA","NA","Mixed","Ab"
+"SERT_KI","WT","WT","Slc6a4 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"SERT_KI","MUT","KI","Slc6a4 (G56A KI/G56A KI)","Slc6a4tm2.1Rbl/Slc6a4tm2.1Rbl","C57BL/6J","B6.129-Slc6a4tm2.1Rbl/J","NA","Absent","TBD"
+"SERT_KO","WT","WT","Slc6a4 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"SERT_KO","MUT","KO","Slc6a4 (-/-)","Slc6a4tm1Kpl/Slc6a4tm1Kpl","C57BL/6J","B6.129-Slc6a4tm1Kpl",8355,"Mixed","Ab"
+"SHANK3","WT","WT","Shank3 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"SHANK3","MUT","Het","Shank3 (+/-) e4-9","Shank3tm2Cmpl/Shank3+","C57BL/6J","B6.129S-Shank3tm2Cmpl/J","NA","Mixed","Ab"
+"SHANK3","MUT","KO","Shank3 (-/-) e4-9","Shank3tm2Cmpl/Shank3tm2Cmpl","C57BL/6J","B6.129S-Shank3tm2Cmpl/J","NA","Mixed","Ab"
+"SHANK3_e21","WT","WT","Shank3 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"SHANK3_e21","MUT","Het","Shank3 (+/-) e21","Shank3tm1Cmpl/Shank3+","C57BL/6J","B6.129S6-Shank3tm1Cmpl/J","NA","Mixed","Ab"
+"SHANK3_e21","MUT","Hom","Shank3 (-/-) e21","Shank3tm1Cmpl/Shank3tm1Cmpl","C57BL/6J","B6.129S6-Shank3tm1Cmpl/J","NA","Mixed","Ab"
+"Taok2","WT","WT","Taok2 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"Taok2","MUT","Het","Taok2 (+/-)","Taok2tm1Dkap/Taok2+","C57BL/6J","B6.Cg-Taok2tm1Dkap/J","NA","Absent","N"
+"Taok2","MUT","KO","Taok2 (-/-)","Taok2tm1Dkap/Taok2tm1Dkap","C57BL/6J","B6.Cg-Taok2tm1Dkap/J","NA","Absent","N"
+"Ube3a","WT","WT","Ube3a (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"Ube3a","MUT","Het","Ube3a (+/-)","Ube3atm1Alb/Ube3a+","C57BL/6J","B6.129S7-Ube3atm1Alb/J",16590,"Mixed","N"
+"TSC1","WT","CON","L7Cre;Tsc1 (+/+)","NA","C57BL/6Jx126SvJaexBALB/cJ","NA","NA","No","N"
+"TSC1","MUT","MUT","L7Cre;Tsc1 (flox/flox)","NA","C57BL/6Jx126SvJaexBALB/cJ","NA","NA","No","Ab"
+"Arhgef6","WT","WT_M","Arhgef6 (+/Y)","NA","C57BL/6N","NA","NA","No","N"
+"Arhgef6","WT","WT_F","Arhgef6 (+/+)","NA","C57BL/6N","NA","NA","No","N"
+"Arhgef6","MUT","Arhgef6_M","Arhgef6 (-/Y)","Arhgef6tm2e.1(EUCOMM)Wtsi/Y","C57BL/6N","C57BL/6N-Arhgef6tm2e.1(EUCOMM)Wtsi/Tcp","NA","No","N"
+"Arhgef6","MUT","Arhgef6_F","Arhgef6 (-/-)","Arhgef6tm2e.1(EUCOMM)Wtsi/Arhgef6tm2e.1(EUCOMM)Wtsi","C57BL/6N","C57BL/6N-Arhgef6tm2e.1(EUCOMM)Wtsi/Tcp","NA","Absent","N"
+"Arid1b","WT","WT","Arid1b (+/+)","NA","C57BL/6N","NA","NA","No","N"
+"Arid1b","MUT","Arid1b","Arid1b (+/-)","Arid1bem1Tcp/Arid1b+","C57BL/6N","C57BL/6N-Arid1bem1Tcp","NA","Yes","CHD"
+"Cacnb2","WT","WT","Cacnb2 (+/+)","NA","C57BL/6N","NA","NA","No","N"
+"Cacnb2","MUT","Cacnb2","Cacnb2 (-/-)","NA","C57BL/6N","NA","NA","No","N"
+"Chd8_Nord","WT","WT","Chd8 (+/+)","NA","C57BL/6N","NA","NA","No","N"
+"Chd8_Nord","MUT","Chd8","Chd8 (+/-)","NA","C57BL/6N","NA","NA","Yes","Ab"
+"Dpyd","WT","WT","Dpyd (+/+)","NA","C57BL/6N","NA","NA","No","N"
+"Dpyd","MUT","HET","Dpyd (+/-)","Dpydtm1c(KOMP)Wtsi/Dpyd+","C57BL/6N","C57BL/6N-Dpydtm1c(KOMP)Wtsi/Tcp","NA","Absent","CHD"
+"Dpyd","MUT","HOM","Dpyd (-/-)","Dpydtm1c(KOMP)Wtsi/Dpydtm1c(KOMP)Wtsi","C57BL/6N","C57BL/6N-Dpydtm1c(KOMP)Wtsi/Tcp","NA","Absent","CHD"
+"Hgsnat","WT","WT","Hgsnat (+/+)","NA","C57BL/6N","NA","NA","No","N"
+"Hgsnat","MUT","Hgsnat","Hgsnat (-/-)","Hgsnatem4Tcp/Hgsnatem4Tcp","C57BL/6N","C57BL/6N-Hgsnatem4Tcp","NA","No","Ab"
+"Kctd13","WT","WT","Kctd13 (+/+)","NA","C57BL/6N","NA","NA","No","N"
+"Kctd13","MUT","Het","Kctd13 (+/-)","NA","C57BL/6N","NA","NA","Absent","N"
+"Kctd13","MUT","KO","Kctd13 (-/-)","NA","C57BL/6N","NA","NA","Absent","N"
+"Nhs","WT","WT","Nhs (+/+)","NA","C57BL/6N","NA","NA","No","N"
+"Nhs","MUT","Nhs","Nhs (-/-)","Nhsem1Tcp/Nhsem1Tcp","C57BL/6N","C57BL/6N-Nhsem1Tcp","NA","Absent","N"
+"Raly","WT","WT","Raly (+/+)","NA","C57BL/6N","NA","NA","No","N"
+"Raly","MUT","Raly","Raly (-/-)","Ralyem2bTcp/Ralyem2bTcp","C57BL/6N","C57BL/6N-Ralyem2bTcp","NA","Absent","Ab"
+"Scn1a","WT","WT","Scn1a (+/+)","NA","C57BL/6N","NA","NA","No","N"
+"Scn1a","MUT","Het","Scn1a (+/-)","NA","C57BL/6N","NA","NA","Yes","N"
+"SGSH","WT","WT","Sgsh (+/+)","NA","C57BL/6N","NA","NA","No","N"
+"SGSH","MUT","SGSH","Sgsh (-/-)","Sgshem3Tcp/Sgshem3Tcp","C57BL/6N","C57BL/6N-Sgshem3Tcp","NA","Absent","N"
+"CHD1L","WT","WT","Chd1l (+/+)","NA","C57BL6/J","NA","NA","No","N"
+"CHD1L","MUT","Het","Chd1l (+/-)","NA","C57BL6/J","NA","NA","Absent","CHD"
+"CHD1L","MUT","Hom","Chd1l (-/-)","NA","C57BL6/J","NA","NA","Absent","CHD"
+"Foster_immunostrains","WT","B6","NA","NA","C57BL6/J","NA","NA","NA","NA"
+"Kctd13_Golzio","WT","WT","Kctd13 (+/+)","NA","C57BL6/J","NA","NA","No","N"
+"Kctd13_Golzio","MUT","Het","Kctd13 (+/-)","NA","C57BL6/J","NA","NA","Absent","N"
+"Kctd13_Golzio","MUT","Hom","Kctd13 (-/-)","NA","C57BL6/J","NA","NA","Absent","N"
+"Lat","WT","WT","Lat (+/+)","NA","C57BL6/J","NA","NA","No","N"
+"Lat","MUT","Het","Lat (+/-)","NA","C57BL6/J","NA","NA","Absent","TBD"
+"Lat","MUT","Hom","Lat (-/-)","NA","C57BL6/J","NA","NA","Absent","TBD"
+"Palmert_immunostrains","WT","WT","NA","NA","C57BL6/J","NA","NA","NA","NA"
+"Palmert_immunostrains","MUT","CD4","Cd4 (-/-)","NA","C57BL6/J","NA","NA","NA","Ab"
+"Palmert_immunostrains","MUT","CD8","Cd8 (-/-)","NA","C57BL6/J","NA","NA","NA","Ab"
+"Palmert_immunostrains","MUT","Cxcr2_hom","Cxcr2 (-/-)","NA","C57BL6/J","NA","NA","NA","TBD"
+"Palmert_immunostrains","MUT","Ighm","Ighm (-/-)","NA","C57BL6/J","NA","NA","NA","N"
+"Palmert_immunostrains","MUT","IL-6","Il6 (-/-)","NA","C57BL6/J","NA","NA","NA","Ab"
+"Palmert_immunostrains","MUT","IL-10","Il10 (-/-)","NA","C57BL6/J","NA","NA","NA","Ab"
+"Palmert_immunostrains","MUT","IL-18","Il18 (-/-)","NA","C57BL6/J","NA","NA","NA","N"
+"Palmert_immunostrains","MUT","Kit","Kit (-/-)","NA","C57BL6/J","NA","NA","NA","N"
+"Palmert_immunostrains","MUT","Nos2","Nos2 (-/-)","NA","C57BL6/J","NA","NA","NA","N"
+"Palmert_immunostrains","MUT","Rag-/-","Rag1 (-/-)","NA","C57BL6/J","NA","NA","NA","N"
+"Palmert_immunostrains","MUT","Rag2","Rag2 (-/-)","NA","C57BL6/J","NA","NA","NA","Ab"
+"PcdhG","WT","WT","Pcdhg (+/+)","NA","C57BL6/J","NA","NA","No","N"
+"PcdhG","MUT","Hmz","Pcdhg (del/+)","NA","C57BL6/J","NA","NA","Absent","Ab"
+"Foster_immunostrains","WT","CD1","NA","NA","CD-1","NA","NA","NA","NA"
+"Gtf2i","WT","WT","Gtf2i (+/+)","NA","CD-1","NA","NA","No","N"
+"Gtf2i","MUT","YT","Gtf2i (+/-)","NA","CD-1","B6.129(Cg)-Dp(5Gtf2i-Gtf2ird1)1Lro/JcrwJ",27792,"No","N"
+"Gtf2i","MUT","XS","Gtf2i (dp/dp)","NA","CD-1","B6.129(Cg)-Dp(5Gtf2i-Gtf2ird1)1Lro/JcrwJ",27792,"Yes","N"
+"BTBR","WT","FVB","NA","NA","FVB/NJ","FVB.129P2-Pde6b+ Tyrc-ch/AntJ",4828,"No","Ab"
+"FMR1_FVB","WT","WT","Fmr1 (+/Y)","NA","FVB/NJ","NA","NA","No","TBD"
+"FMR1_FVB","MUT","KO","Fmr1 (-/Y)","Fmr1tm1Cgr/Y","FVB/NJ","FVB.129P2-Pde6b+ Tyrc-ch/AntJ Fmr1tm1Cgr/J",4624,"No","TBD"
+"Foster_immunostrains","WT","FVB","NA","NA","FVB/NJ","FVB.129P2-Pde6b+ Tyrc-ch/AntJ","NA","NA","NA"
+"Ube3a_Dup","WT","WT","Ube3a-2 (+/+); Camk2a (+/+)","NA","FVB/NJ","NA","026279; 007004","No","N"
+"Ube3a_Dup","MUT","tTA","Ube3a-2 (+/+); Camk2a (tTA/+)","NA","FVB/NJ","NA","026279; 007004","No","N"
+"Ube3a_Dup","MUT","TRE","Ube3a-2 (TRE/+); Camk2a (+/+)","Tg(tetO-Ube3a*2)884Svd/Ube3a+","FVB/NJ","FVB/N-Tg(tetO-Ube3a*2)884Svd/J","026279; 007004","No","N"
+"Ube3a_Dup","MUT","Dup15","Ube3a-2 (TRE/+); Camk2a (tTA/+)","Tg(tetO-Ube3a*2)884Svd/Ube3a+","FVB/NJ","FVB/N-Tg(tetO-Ube3a*2)884Svd/J","026279; 007004","No","N"
+"CYFIP1","WT","WT","Cyfip1 (+/+)","NA","NA","NA","NA","No","N"
+"CYFIP1","MUT","cKO","Cyfip1 (-/-)","NA","NA","NA","NA","No","CHD"
+"CYFIP1","MUT","OE","Cyfip1 (+/OE)","NA","NA","NA","NA","Absent","CHD"
+"DISC1","WT","WT","Disc1 (+/+)","NA","NA","NA","NA","No","N"
+"DISC1","MUT","KI","Disc1 (+/KI)","NA","NA","NA","NA","Yes","TBD"
+"Dyrk1a","WT","WT","Dyrk1a (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"Dyrk1a","MUT","HT","Dyrk1a (+/-)","NA","C57BL/6J","NA","NA","Yes","N"
+"Foster_immunostrains","WT","UBE3A+/+","Ube3a (+/+)","NA","C57BL6/J","NA","NA","NA","N"
+"Foster_immunostrains","MUT","FMR1","Fmr1 (-/Y)","NA","C57BL6/J","NA","NA","NA","TBD"
+"Foster_immunostrains","MUT","TCR","Tcrb (-/-) Tcrd (-/-)","Tcrbtm1Mom/Tcrbtm1Mom Tcrdtm1Mom/Tcrdtm1Mom","C57BL6/J","B6.129P2-Tcrbtm1Mom Tcrdtm1Mom/J",2122,"NA",
+"Foster_immunostrains","MUT","UBE3A+/-","Ube3a (+/-)","NA","C57BL6/J","NA","NA","NA","N"
+"Gabrb3","WT","WT","Gabrb3 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"Gabrb3","MUT","Het","Gabrb3 (+/-)","NA","C57BL/6J","B6;129-Gabrb3tm1Geh/J",2711,"Mixed","TBD"
+"Kdm5DArid","WT","Het","Kdm5b (+/-)","NA","C57BL/6J","NA","NA","No","N"
+"Kdm5DArid","MUT","Hom","Kdm5b (-/-)","NA","C57BL/6J","NA","NA","Absent","N"
+"MOR","WT","WT","Oprm1 (+/+)","NA","B6/SV129","NA","NA","No","N"
+"MOR","MUT","Het","Oprm1 (+/-)","NA","B6/SV129","NA","NA","Absent","N"
+"MOR","MUT","Hom","Oprm1 (-/-)","NA","B6/SV129","NA","NA","Absent","N"
+"Ptchd1","WT","WT","Ptchd1 (+/Y)","NA","C57BL/6J","NA","NA","No","N"
+"Ptchd1","MUT","Hemi","Ptchd1 (-/Y)","NA","C57BL/6J","NA","NA","Yes","N"
+"PTEN_Kim","WT","WT_131","Pten131 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"PTEN_Kim","MUT","HT_131","Pten131 (+/-)","NA","C57BL/6J","NA","NA","Mixed","Ab"
+"PTEN_Kim","WT","WT_167","Pten167 (+/+)","NA","C57BL/6J","NA","NA","No","N"
+"PTEN_Kim","MUT","HT_167","Pten167 (+/-)","NA","C57BL/6J","NA","NA","Mixed","Ab"
+"Setd5","WT","WT","Setd5(+/+)",,"CD-1",,,,
+"Setd5","MUT","Het","Setd5(+/-)",,"CD-1",,,,
+"Wdfy3","WT","WT","Wdfy3(+/+)",,"FVB/NJ",,,,
+"Wdfy3","MUT","Het","Wdfy3(+/-)",,"FVB/NJ",,,,
+"Cul3","MUT","Het","Cul3 (+/-)",,"C57BL/6N",,,,
+"Cul3","WT","WT","Cul3 (+/+)",,"C57BL/6N",,,,
+"kd","WT","WT",,,"C57BL6/J",,,,
+"tcdd","WT","WT",,,"C57BL6/J",,,,
+"Nord_Scn1a","WT","WT","Scn1a(+/+)",,"C57BL6/N",,,,
+"Nord_Scn1a","MUT","Het","Scn1a(+/-)",,"C57BL6/N",,,,
+"mvpXkctd13","MUT","Kctd13H_MvpH","Kctd13 (+/-); Mvp (+/-)",,"C57BL6/J",,,,
+"mvpXkctd13","WT","Kctd13W_MvpW","Kctd13 (+/+); Mvp (+/+)",,"C57BL6/J",,,,
+"mvpXkctd13","MUT","Kctd13W_MvpH","Kctd13 (+/+); Mvp (+/-)",,"C57BL6/J",,,,
+"latXkctd13","MUT","Kctd13Het_LatHet","Kctd13 (+/-); Lat (+/-)",,"C57BL6/J",,,,
+"latXkctd13","WT","Kctd13Wt_LatWt","Kctd13 (+/+); Lat (+/+)",,"C57BL6/J",,,,
+"Tbr1","WT","WT","Tbr1(+/+)",,"C57BL6",,,,
+"Tbr1","MUT","Tbr","Tbr1(+/-)",,"C57BL6",,,,
+"VPA","WT","WT","C57BL6/J",,"C57BL6/J",,,,
+"VPA","MUT","VPA","C57BL6/J",,"C57BL6/J",,,,
+"BTBR_BRC","WT","B6","B6",,"C57BL6/J",,,,
+"BTBR_BRC","MUT","BRC","BTBR (BRC)",,"BTBR T+tf/J",,,,
+"BTBR_BRC","MUT","JAX","BTBR T+tf/J",,"BTBR T+tf/J",,,,
+"Syngap1","WT","WT","Syngap1(+/+)",,"C57BL6/J",,,,
+"Syngap1","MUT","Het","Syngap1(+/-)",,"C57BL6/J",,,,
+"SCT","MUT","F","UU ",,,,,,
+"SCT","MUT","M","UUsry",,,,,,
+"SCT","MUT","F","UUY-",,,,,,
+"SCT","MUT","M","UUY-Sry",,,,,,
+"SCT","MUT","F","UY-",,,,,,
+"SCT","MUT","M","UY-Sry",,,,,,
+"SCT","MUT","F","UY-Y-",,,,,,
+"SCT","MUT","M","UY-Y-Sry",,,,,,
+"Atrx","WT","CT","Atrx","N/A","C57BL/6",,,,
+"Atrx","MUT","KO","Atrx-cKO","N/A","C57BL/6",,,,
+"CTCF","WT","C","CTCF Cre-",,"C57BL/6",,,,
+"CTCF","WT","CreC","CTCF Cre+",,"C57BL/6",,,,
+"CTCF","WT","WT","CTCF(+/+)",,"C57BL/6",,,,
+"CTCF","MUT","H","CTCF(+/-)",,"C57BL/6",,,,
+"Chd8_BTBR","WT","WT","BTBR",,"BTBR",,,,
+"Chd8_BTBR","MUT","Het","BTBR;Chd8+/-","BTBR;Chd8+/-","BTBR",,,,
+"CMMR_New","MUT","katnal2","Katnal2(-/-)",,"C57BL/6N",,,,
+"CMMR_New","MUT","l2hgdh","L2hgdh(-/-)",,"C57BL/6N",,,,
+"CMMR_New","MUT","nexmif","Nexmif(-/-)",,"C57BL/6N",,,,
+"CMMR_New","MUT","otc","Otc(+/-)",,"C57BL/6N",,,,
+"CMMR_New","MUT","pah","Pah(+/-)",,"C57BL/6N",,,,
+"CMMR_New","MUT","rab39b","Rab39b(-/-)",,"C57BL/6N",,,,
+"CMMR_New","MUT","ranbp17","Ranbp17(-/-)",,"C57BL/6N",,,,
+"CMMR_New","MUT","upf3b","Upf3b(-/-)",,"C57BL/6N",,,,
+"CMMR_New","MUT","ypel2","Ypel2(-/-)",,"C57BL/6N",,,,
+"CMMR_New","WT","WT","WT",,"C57BL/6N",,,,
+"Cttnbp2","WT","WT","Cttnbp2(+/+)",,"C57BL/6N",,,,
+"Cttnbp2","MUT","Het","Cttnbp2(+/-)",,"C57BL/6N",,,,
+"Kmt2d","MUT","MUT","Kmt2d(+/-)",,"B6/SV129",,,,
+"Kmt2d","WT","WT","Kmt2d(+/+)",,"B6/SV129",,,,
+"Sema3a","MUT","Het","Sema3a(+/-)",,"C57BL6/J",,,,
+"Sema3a","WT","WT","Sema3a(+/+)",,"C57BL6/J",,,,
+"GSK3","WT","CON","Gsk3(+/+)",,"C57BL/6",,,,
+"GSK3","MUT","Alpha","Gsk3(a)",,"C57BL/6",,,,
+"GSK3","MUT","Beta","Gsk3(b)",,"C57BL/6",,,,
+"Fusdelta14","MUT","Hom","Fusdelta14(-/-)",,"C57BL6/J",,,,
+"Fusdelta14","WT","WT","Fusdelta14(+/+)",,"C57BL6/J",,,,
+"Phf6","MUT","KO","Phf6(-/-)",,"C57BL6/J",,,,
+"Phf6","WT","WT","Phf6(+/+)",,"C57BL6/J",,,,
+"PowellCul3","MUT","Het","Cul3(+/-)",,"B6/SV129",,,,
+"PowellCul3","MUT","Hom","Cul3(-/-)",,"B6/SV129",,,,
+"PowellCul3","WT","WT","Cul3(+/+)",,"B6/SV129",,,,
+"SalterNR1a","MUT","NR1bKI","Nr1a(+/+);Nr1b(KI)",,"C57BL6/J",,,,
+"SalterNR1a","MUT","NR1aKO","Nr1a(-/-);Nr1b(+/+)",,"C57BL6/J",,,,
+"SalterNR1a","WT","WT","Nr1a(+/+);Nr1b(+/+)",,"C57BL6/J",,,,
+"BeversdorfSert","WT","WNA","Sert(+/+)",,"C57BL6/J",,,,
+"BeversdorfSert","WT","WND","Sert(+/+)",,"C57BL6/J",,,,
+"BeversdorfSert","MUT","HSA","Sert(-/-)",,"C57BL6/J",,,,
+"BeversdorfSert","MUT","HSD","Sert(-/-)",,"C57BL6/J",,,,
+"PlxnA2","MUT","cKO","PlxnA2(cKO)",,,,,,
+"PlxnA2","WT","WT","PlxnA2(+/+)",,,,,,
+"Itsn","MUT","itsn1","itsn1(-/-);itsn2(+/+)",,"C57BL6/J",,,,
+"Itsn","MUT","itsn2","itsn1(+/+);itsn2(-/-)",,"C57BL6/J",,,,
+"Itsn","MUT","DKO","itsn1(-/-);itsn2(-/-)",,"C57BL6/J",,,,
+"Itsn","WT","WT","itsn1(+/+);itsn2(+/+)",,"C57BL6/J",,,,
+"Mthfr","MUT","Het","Mthfr(+/-)",,"C57BL6/J",,,,
+"Mthfr","WT","WT","Mthfr(+/+)",,"C57BL6/J",,,,
+"SchererPtchd1","MUT","Hemi-polyA","Ptchd1(+/polyA)",,"C57BL6/J",,,,
+"SchererPtchd1","WT","WT","Ptchd1(+/+)",,"C57BL6/J",,,,
+"SnfHL","MUT","Snf2Hcko-emxcre_KO","Snf2H(cKO);emxcre",,,,,,
+"SnfHL","MUT","Snf2Hcko-emxcre_WT","Snf2H(+/+);emxcre",,,,,,
+"SnfHL","MUT","Snf2Hcko-nestincre_KO","Snf2H(cKO);nestincre",,,,,,
+"SnfHL","MUT","Snf2Hcko-nestincre_WT","Snf2H(+/+);nestincre",,,,,,
+"SnfHL","MUT","Snf2Hcko-Snf2LKO-emxcre_KO","Snf2H(cKO);Snf2L(-/-);emxcre",,,,,,
+"SnfHL","MUT","Snf2Hcko-Snf2LKO-emxcre_WT","Snf2H(+/+);Snf2L(-/-);emxcre",,,,,,
+"SnfHL","MUT","Snf2L_KO","Snf2L(-/-)",,,,,,
+"SnfHL","WT","Snf2L_WT","Snf2L(+/+)",,,,,,
