@@ -1,0 +1,99 @@
+
+
+
+```{r WT compare relative to absolute, left to right roi sets}
+abs_right_g<-read_csv('asset/results/absolute_wt_right_hedges_g.csv',col_types = cols())
+abs_left_g<-read_csv('asset/results/absolute_wt_left_hedges_g.csv',col_types = cols())
+rel_right_g<-read_csv('asset/results/relative_wt_right_hedges_g.csv',col_types = cols())
+rel_left_g<-read_csv('asset/results/relative_wt_left_hedges_g.csv',col_types = cols())
+
+df<-tibble(ar=abs_right_g$value,al=abs_left_g$value,rr=rel_right_g$value,rl=rel_left_g$value)
+
+a<-ggscatter(df, x = "ar", y = "al",
+   color = "black", shape = 21, size = 3, # Points color, shape and size
+   add = "reg.line",  # Add regressin line
+   add.params = list(color = "blue", fill = "lightgray"), # Customize reg. line
+   conf.int = TRUE, # Add confidence interval
+   cor.coef = TRUE, # Add correlation coefficient. see ?stat_cor
+   cor.coeff.args = list(method = "pearson")
+   )
+b<-ggscatter(df, x = "rr", y = "rl",
+   color = "black", shape = 21, size = 3, # Points color, shape and size
+   add = "reg.line",  # Add regressin line
+   add.params = list(color = "blue", fill = "lightgray"), # Customize reg. line
+   conf.int = TRUE, # Add confidence interval
+   cor.coef = TRUE, # Add correlation coefficient. see ?stat_cor
+   cor.coeff.args = list(method = "pearson")
+   )
+c<-ggscatter(df, x = "ar", y = "rr",
+   color = "black", shape = 21, size = 3, # Points color, shape and size
+   add = "reg.line",  # Add regressin line
+   add.params = list(color = "blue", fill = "lightgray"), # Customize reg. line
+   conf.int = TRUE, # Add confidence interval
+   cor.coef = TRUE, # Add correlation coefficient. see ?stat_cor
+   cor.coeff.args = list(method = "pearson")
+   )
+d<-ggscatter(df, x = "rr", y = "rl",
+   color = "black", shape = 21, size = 3, # Points color, shape and size
+   add = "reg.line",  # Add regressin line
+   add.params = list(color = "blue", fill = "lightgray"), # Customize reg. line
+   conf.int = TRUE, # Add confidence interval
+   cor.coef = TRUE, # Add correlation coefficient. see ?stat_cor
+   cor.coeff.args = list(method = "pearson")
+   )
+
+ggarrange(a,b,c,d,ncol=2,nrow=2)
+```
+
+## Do voxelwise stats
+
+```{r}
+jac_type<-'absolute'
+
+vol_AI_list <-
+  file.path(data_path,jac_type, 'vol_AI') %>% dir() %>% gsub(".nii.gz", "", .)
+vol_mask<-readNifti('/project/4180000.34/template/mask_rs.nii.gz')
+  
+study_sub<-study[which(study$Is_Wildtype=='WT'),]
+AI_arr<-c()
+exclude<-c()
+  
+for(i in 1:dim(study_sub)[1]){
+ 
+  vol_AI_file <- vol_AI_list[which(vol_AI_list %in% study_sub$Mouse_ID[i])]
+  if(length(vol_AI_file)==0){exclude<-c(exclude,i)
+                              next}
+  
+  #####I think this part bugs. Needs to sort it .
+  AI_tmp<-readNifti(file.path(data_path,jac_type, 'vol_AI', glue('{vol_AI_file}.nii.gz')))
+  AI_arr<-abind(AI_arr, AI_tmp[],along = 4)
+}
+  
+  hedges_g_img<-array(0,dim=c(97,191,63))
+  hedges_sign_img<-array(0,dim=c(97,191,63))
+  
+   if(length(exclude)>0){study_sub<- study_sub %>% slice(-exclude)}
+  
+  for(x in 1:97){
+    for(y in 1:191){
+      for(z in 1:63){
+        if(vol_mask[x,y,z]==0){next}
+       
+        study_sub$AI <- AI_arr[x,y,z,] 
+        
+        AI_g <- hedges_g(study_sub$AI, rep(0,length(study_sub)))
+        hedges_g_img[x,y,z] <- AI_g$Hedges_g
+        hedges_sign_img[x,y,z] <- sign(AI_g$CI_high) == sign(AI_g$CI_low)
+        
+        
+      }
+    }  
+  }
+  
+  hedges_g_img %>% asNifti %>% writeNifti(glue('asset/nii/{jac_type}_wt_g'), template = vol_mask)
+  hedges_sign_img %>% asNifti %>% writeNifti(glue('asset/nii/{jac_type}_wt_sign'), template = vol_mask)
+
+
+```
+
+
