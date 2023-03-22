@@ -124,7 +124,40 @@ contrast_list<-list(c('WT','pDp'),
                     c(),c(),c())
 
 names(contrast_list)<-study_name
+
 ```
+
+### test affine matrix shears
+get all affine parameters and put into an array
+```r
+trans_path<-'/project/4180000.34/transform'
+
+trans_list<- dir(trans_path, full.names=1)
+
+trans_mat <- array(NA, dim = c(dim(study)[1], 12))
+
+for(i in 1:dim(study)[1]){
+
+trans_hit<-grep(study$Mouse_ID[i],trans_list)
+
+if(length(trans_hit)==1){
+  trans_mat[i,]<-read_file(file.path(trans_list[trans_hit])) %>% 
+    gsub("[\r\n]", "", .) %>% 
+    str_split('Linear_Transform = ', simplify=1) %>%
+    .[2] %>% str_split(';Transform_Type',simplify=1) %>% 
+    .[1] %>% str_split(' ', simplify=0) %>% 
+    unlist %>% 
+    as.double 
+    }
+
+}
+
+save(trans_mat,file=file.path('asset','table','trans_mat.RData'))
+
+```
+
+
+
 
 # 3. prepare the assets for the analysis
 *** you need to have access to the data to run this part of the code ***
