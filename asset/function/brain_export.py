@@ -1,7 +1,7 @@
 template='DSURQE_40micron_brain'
-overlay='/home/traaffneu/joagra/code/mouse_assymetry/asset/nifti/absolute_wt_right.nii.gz'
-outputdir='/home/traaffneu/joagra/code/mouse_assymetry/asset/figure/'
-filename='Fig1a'
+overlay='/home/gjoanes/code/mouse_assymetry/asset/nifti/absolute_Cluster3_wt_right.nii.gz'
+outputdir='/home/gjoanes/code/mouse_assymetry/asset/figure/'
+filename='Fig3c_cluster3'
 color='viridis'
 
 import gl
