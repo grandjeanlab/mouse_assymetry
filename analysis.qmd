@@ -156,7 +156,40 @@ save(trans_mat,file=file.path('asset','table','trans_mat.RData'))
 
 ```
 
+```r
 
+wt_select<-which(study$Is_Wildtype=="WT")
+study_wt <- study[wt_select,]
+
+load(file.path('asset','table','trans_mat.RData'))
+
+trans_mat<-trans_mat[wt_select,]
+
+#make arrays to store the results
+AI_hedges_g <- array(NA, dim = c(dim(trans_mat)[2]))
+AI_hedges_lower <-
+  array(NA, dim = c(dim(trans_mat)[2]))
+AI_hedges_upper <-
+  array(NA, dim = c(dim(trans_mat)[2]))
+AI_hedges_sign <-
+  array(NA, dim = c(dim(trans_mat)[2]))
+
+#loop through all ROIs  and do the one sample t-test
+for (i in 1:dim(trans_mat)[2]) {
+  study_wt$AI <- trans_mat[, i]
+  
+    AI_g <- hedges_g(study_wt$AI[!is.na(study_wt$AI)],rep(0,length(study_wt$AI[!is.na(study_wt$AI)])))
+    AI_hedges_g[i] <- AI_g$Hedges_g
+    AI_hedges_lower[i] <- AI_g$CI_low
+    AI_hedges_upper[i] <- AI_g$CI_high
+    AI_hedges_sign[i] <- sign(AI_g$CI_high) == sign(AI_g$CI_low)
+    
+}
+
+
+
+
+```
 
 
 # 3. prepare the assets for the analysis
