@@ -136,11 +136,14 @@ trans_list<- dir(trans_path, full.names=1)
 
 trans_mat <- array(NA, dim = c(dim(study)[1], 12))
 
+study$trans_hit<-0
+
 for(i in 1:dim(study)[1]){
 
 trans_hit<-grep(study$Mouse_ID[i],trans_list)
 
 if(length(trans_hit)==1){
+  study$trans_hit[i]<-1
   trans_mat[i,]<-read_file(file.path(trans_list[trans_hit])) %>% 
     gsub("[\r\n]", "", .) %>% 
     str_split('Linear_Transform = ', simplify=1) %>%
@@ -157,7 +160,6 @@ save(trans_mat,file=file.path('asset','table','trans_mat.RData'))
 ```
 
 ```r
-
 wt_select<-which(study$Is_Wildtype=="WT")
 study_wt <- study[wt_select,]
 
@@ -187,8 +189,6 @@ for (i in 1:dim(trans_mat)[2]) {
 }
 
 
-
-
 ```
 
 
@@ -199,7 +199,7 @@ get the AI values from all ROIs and for every subject into an array
 
 ```r
 #select the type of jacobian to use. Absolute are without the 12 parameter transformation regression, relative are with the 12 parameter transformation regression
-for(jac_type in c('absolute','relative')){
+jac_type<-'absolute'
 
 #get the list of all AI files geneted by hte preprocess.qmd script
 roi_AI_list <-
@@ -227,7 +227,7 @@ for (i in 1:dim(study)[1]) {
   }
 
 save(roi_AI_mat,file=file.path('asset','table',glue('{jac_type}_roi_AI_mat.RData')))
-}
+
 ```
 
 
@@ -239,7 +239,7 @@ wt_select<-which(study$Is_Wildtype=="WT")
 study_wt <- study[wt_select,]
 
 #loop through both jacobian types
-for(jac_type in c('absolute','relative')){
+jac_type<-'absolute'
 
 #load the AI array
 load(file.path('asset','table',glue('{jac_type}_roi_AI_mat.RData')))
@@ -267,13 +267,14 @@ for (i in 1:dim(roi_merge)[1]) {
     
 }
 
-project2atlas(roi_merge$label[right_select],AI_hedges_g[right_select],AI_hedges_sign[right_select]) %>% writeNifti(glue('asset/nifti/{jac_type}_wt_right.nii.gz'))
+project2atlas(roi_merge$label[right_select],AI_hedges_g[right_select],AI_hedges_sign[right_select], atlas='/project/4180000.34/DSURQE_40micron_labels.nii.gz') %>% writeNifti(glue('asset/nifti/{jac_type}_wt_right.nii.gz'))
 
-project2atlas(roi_merge$label[left_select],AI_hedges_g[left_select],AI_hedges_sign[left_select]) %>% writeNifti(glue('asset/nifti/{jac_type}_wt_left.nii.gz'))
+project2atlas(roi_merge$label[left_select],AI_hedges_g[left_select],AI_hedges_sign[left_select], atlas ='/project/4180000.34/DSURQE_40micron_labels.nii.gz') %>% writeNifti(glue('asset/nifti/{jac_type}_wt_left.nii.gz'))
 
 
 AI_hedges_g[right_select] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_right_hedges_g.csv'))
 AI_hedges_g[left_select[left_reorder]]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_left_hedges_g.csv'))
+A
 AI_hedges_lower[right_select] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_right_AI_hedges_lower.csv'))
 AI_hedges_lower[left_select[left_reorder]]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_left_AI_hedges_lower.csv'))
 AI_hedges_upper[right_select] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_right_AI_hedges_upper.csv'))
@@ -289,8 +290,6 @@ AI_hedge_g_wt<-AI_hedge_g_wt[right_select,]
 AI_hedge_g_wt<-AI_hedge_g_wt[which(AI_hedge_g_wt$sign==TRUE),]
 AI_hedge_g_wt<-AI_hedge_g_wt %>% mutate_at(3:5, as.double) %>% select(-6)
 AI_hedge_g_wt %>% as_tibble %>% write_csv(glue('asset/figure/{jac_type}_wt_right_g.csv'))
-
-}
 
 
 ```
@@ -338,31 +337,7 @@ for (i in 1:dim(roi_merge)[1]) {
 plot(AI_hedges_g_s1[right_select],AI_hedges_g_s2[right_select],pch=16,col='red')
 plot(AI_hedges_g_m[right_select],AI_hedges_g_f[right_select],pch=16,col='red')
 
-
-project2atlas(roi_merge$label[right_select],AI_hedges_g[right_select],AI_hedges_sign[right_select]) %>% writeNifti(glue('asset/nifti/{jac_type}_wt_right.nii.gz'))
-
-project2atlas(roi_merge$label[left_select],AI_hedges_g[left_select],AI_hedges_sign[left_select]) %>% writeNifti(glue('asset/nifti/{jac_type}_wt_left.nii.gz'))
-
-
-AI_hedges_g[right_select] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_right_hedges_g.csv'))
-AI_hedges_g[left_select[left_reorder]]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_left_hedges_g.csv'))
-AI_hedges_lower[right_select] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_right_AI_hedges_lower.csv'))
-AI_hedges_lower[left_select[left_reorder]]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_left_AI_hedges_lower.csv'))
-AI_hedges_upper[right_select] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_right_AI_hedges_upper.csv'))
-AI_hedges_upper[left_select[left_reorder]]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_left_AI_hedges_upper.csv'))
-AI_hedges_sign[right_select] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_right_AI_hedges_sign.csv'))
-AI_hedges_sign[left_select[left_reorder]]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_left_AI_hedges_sign.csv'))
-
-
-#make a tibble with the results
-AI_hedge_g_wt<-tibble(roi=roi_merge$dsurqe_struct, label=roi_merge$label,g=AI_hedges_g, lower=AI_hedges_lower, upper=AI_hedges_upper, sign=AI_hedges_sign)
-AI_hedge_g_wt<-AI_hedge_g_wt[right_select,]
-#only select AI_hedge_g_wt where sign is TRUE
-AI_hedge_g_wt<-AI_hedge_g_wt[which(AI_hedge_g_wt$sign==TRUE),]
-AI_hedge_g_wt<-AI_hedge_g_wt %>% mutate_at(3:5, as.double) %>% select(-6)
-AI_hedge_g_wt %>% as_tibble %>% write_csv(glue('asset/figure/{jac_type}_wt_right_g.csv'))
-
-
+#! reminder to make nice plots for test re-test. 
 
 
 ```

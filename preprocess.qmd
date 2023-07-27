@@ -1,0 +1,164 @@
+---
+title: "preprocessing mouse asymmetry"
+output: gfm
+author: "Joanes Grandjean"
+---
+
+# 1. Install dependencies
+```bash
+# Install dependencies
+pip install nibabel h5py nilearn
+```
+
+# 2. Prepare directories
+```bash
+data_dir='/project/4180000.34/'
+scratch_folder={TMP}
+
+
+# make some directories
+mkdir -p {data_dir}/tmp
+mkdir -p {data_dir}/template
+
+
+#absolute jacobian output
+mkdir -p {data_dir}/proc/absolute/vol_AI
+mkdir -p {data_dir}/proc/absolute/roi_orig
+mkdir -p {data_dir}/proc/absolute/roi_flip
+mkdir -p {data_dir}/proc/absolute/roi_AI
+#relative jacobian output
+B
+A
+mkdir -p {data_dir}/proc/relative/vol_AI
+mkdir -p {data_dir}/proc/relative/roi_orig
+mkdir -p {data_dir}/proc/relative/roi_flip
+mkdir -p {data_dir}/proc/relative/roi_AI
+#cache directory
+mkdir -p {scratch_folder}
+
+
+```
+
+# 3. Download mouse brain atlas
+B
+```bash
+cd {data_dir}/template
+
+# Download DSURQE atlas
+wget -P {data_dir}/template http://repo.mouseimaging.ca/repo/DSURQE_40micron/DSURQE_40micron_R_mapping.csv
+wget -P {data_dir}/template http://repo.mouseimaging.ca/repo/DSURQE_40micron/DSURQE_40micron_labels.mnc
+wget -P {data_dir}/template http://repo.mouseimaging.ca/repo/DSURQE_40micron/DSURQE_40micron_mask.mnc
+```
+
+
+# 4. prepare the raw data
+```python
+import os
+import numpy as np
+from pandas import read_csv
+from nilearn.input_data import NiftiLabelsMasker
+
+
+data_dir='/project/4180000.34/'
+mask_file=os.path.join(data_dir, 'template/DSURQE_40micron_mask.mnc')
+label_file=os.path.join(data_dir, 'template/DSURQE_40micron_labels.mnc')
+roi_file=os.path.join(data_dir,'template/DSURQE_40micron_R_mapping.csv')
+scratch_folder='/scratch/data/joagra'
+
+# quick function to check which vector element correspond to which in ROI extract. Here I extract the label file itselt
+masker = NiftiLabelsMasker(labels_img=label_file, mask_img=mask_file, standardize=False, memory=scratch_folder, verbose=0)
+label_extract = masker.fit_transform(label_file)
+np.savetxt('asset/label_extract',label_extract)
+
+df = read_csv('asset/study.csv')
+
+#df = read_csv('asset/study_stable.csv')
+new_affine = np.load('asset/affine.npy')
+```
+
+# 5. validation steps nilearn and mask
+```python
+# import the relevant libraries
+import os
+import numpy as np
+import nibabel as nib
+from nilearn.image import resample_to_img, math_img, resample_img, swap_img_hemispheres
+from nilearn.maskers import NiftiLabelsMasker
+
+
+#resample the mask to the same format as the images.
+mask_rs = resample_img(mask_file, new_affine, target_shape=(97, 191, 63),interpolation='nearest') 
+        
+# convert to nifti bc MINC is terrible to handle IMO and save
+mask_nifti = nib.Nifti1Image(mask_rs.get_data(), affine=mask_rs.affine)
+nib.save(mask_nifti,os.path.join(data_dir,'template','mask_rs.nii.gz'))
+```
+
+# 6. actual function to loop through the files
+```python
+# import the relevant libraries
+import os
+import numpy as np
+from pandas import read_csv
+import nibabel as nib
+from nilearn.image import resample_to_img, math_img, resample_img, swap_img_hemispheres
+from nilearn.maskers import NiftiLabelsMasker
+
+data_dir='/project/4180000.34/'
+mask_file=os.path.join(data_dir, 'template/DSURQE_40micron_mask.mnc')
+label_file=os.path.join(data_dir, 'template/DSURQE_40micron_labels.mnc')
+roi_file=os.path.join(data_dir,'template/DSURQE_40micron_R_mapping.csv')
+scratch_folder='/scratch/joagra/49418539.dccn-l029.dccn.nl '
+
+df = read_csv('asset/study.csv')
+new_affine = np.load('asset/affine.npy')
+voxel_size = np.power(0.04,3) # 40 micron voxel size
+
+# init ROI mask
+masker = NiftiLabelsMasker(labels_img=label_file, mask_img=mask_file, standardize=False, memory=scratch_folder, verbose=0)
+
+roi_indices, roi_counts = np.unique(nib.load(label_file).get_fdata(),return_counts=True)
+roi_counts = roi_counts[roi_indices != 0]
+roi_counts = roi_counts * voxel_size
+
+
+for mouseID, absolute in zip(df['Mouse_ID'], df['Scan_To_Study_Global_Space_Resampled_Absolute_Jacobians']):
+  print("now doing "+mouseID)
+  absolute=os.path.split(absolute)[1]
+  minc_path=absolute
+  folder_path='AbsVol'
+  ouput_path='absolute'
+  jac=os.path.join(data_dir,folder_path,minc_path)
+  if os.path.exists(os.path.join(data_dir,'proc',ouput_path,'vol_AI',mouseID+'.nii.gz')):
+    continue
+  if os.path.exists(jac):
+    # exp correct the jacobian    
+    jac = math_img("np.exp(img)",img=jac)
+    #swap hemiphere and resample to get flipped image
+    jac_sw = swap_img_hemispheres(jac)
+    jac_sw_rs = resample_to_img(jac_sw, jac)
+    #voxel correct the jacobian
+    jac_vox = math_img("img*np.power(0.04,3)",img=jac)
+    jac_sw_rs_vox = math_img("img*np.power(0.04,3)",img=jac_sw_rs)
+    # calculate assymetry index and resample to mask
+    asym = math_img("(img1 - img2)/(img1 + img2)",img1=jac_vox, img2=jac_sw_rs_vox)
+    asym_rs = resample_img(asym, new_affine, target_shape=(97, 191, 63)) 
+    # convert to nifti bc MINC is terrible to handle IMO and save
+    asym_nifti = nib.Nifti1Image(asym_rs.get_fdata(), affine=asym_rs.affine)
+    nib.save(asym_nifti,os.path.join(data_dir,'proc',ouput_path,'vol_AI',mouseID+'.nii.gz'))
+    # extract jacobians using DSURQE atlas labels
+    jac_extract = masker.fit_transform(jac)
+    jac_sw_extract = masker.fit_transform(jac_sw_rs)
+    # calculate ROI volume using jac_extract and roi_counts
+    vol_extract = jac_extract[0] * roi_counts
+    vol_sw_extract = jac_sw_extract[0] * roi_counts
+    # calculate assymetry index for each ROI
+    AI = (vol_extract- vol_sw_extract)/(vol_extract + vol_sw_extract)
+    # save the results
+    np.savetxt(os.path.join(data_dir,'proc',ouput_path,'roi_orig',mouseID+'.txt'),jac_extract)
+    np.savetxt(os.path.join(data_dir,'proc',ouput_path,'roi_flip',mouseID+'.txt'),jac_sw_extract)
+    np.savetxt(os.path.join(data_dir,'proc',ouput_path,'roi_AI',mouseID+'.txt'),AI)
+
+
+```
+
