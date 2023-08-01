@@ -108,7 +108,8 @@ data_dir='/project/4180000.34/'
 mask_file=os.path.join(data_dir, 'template/DSURQE_40micron_mask.mnc')
 label_file=os.path.join(data_dir, 'template/DSURQE_40micron_labels.mnc')
 roi_file=os.path.join(data_dir,'template/DSURQE_40micron_R_mapping.csv')
-scratch_folder='/scratch/joagra/49418539.dccn-l029.dccn.nl '
+scratch_folder='/scratch/joagra/49518430.dccn-l029.dccn.nl'
+
 
 df = read_csv('asset/study.csv')
 new_affine = np.load('asset/affine.npy')
@@ -122,12 +123,13 @@ roi_counts = roi_counts[roi_indices != 0]
 roi_counts = roi_counts * voxel_size
 
 
-for mouseID, absolute in zip(df['Mouse_ID'], df['Scan_To_Study_Global_Space_Resampled_Absolute_Jacobians']):
+for mouseID, absolute, relative in zip(df['Mouse_ID'], df['Scan_To_Study_Global_Space_Resampled_Absolute_Jacobians'], df['Scan_To_Study_Global_Space_Resampled_Relative_Jacobians']):
   print("now doing "+mouseID)
   absolute=os.path.split(absolute)[1]
-  minc_path=absolute
-  folder_path='AbsVol'
-  ouput_path='absolute'
+  relative=os.path.split(relative)[1]
+  minc_path=relative #absolute or relative 
+  folder_path='RelVol' #AbsVol or RelVol
+  ouput_path='relative' #absolute or relative
   jac=os.path.join(data_dir,folder_path,minc_path)
   if os.path.exists(os.path.join(data_dir,'proc',ouput_path,'vol_AI',mouseID+'.nii.gz')):
     continue
