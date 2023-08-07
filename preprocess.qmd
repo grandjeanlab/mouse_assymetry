@@ -127,9 +127,9 @@ for mouseID, absolute, relative in zip(df['Mouse_ID'], df['Scan_To_Study_Global_
   print("now doing "+mouseID)
   absolute=os.path.split(absolute)[1]
   relative=os.path.split(relative)[1]
-  minc_path=relative #absolute or relative 
-  folder_path='RelVol' #AbsVol or RelVol
-  ouput_path='relative' #absolute or relative
+  minc_path=absolute #absolute or relative 
+  folder_path='AbsVol' #AbsVol or RelVol
+  ouput_path='absolute' #absolute or relative
   jac=os.path.join(data_dir,folder_path,minc_path)
   if os.path.exists(os.path.join(data_dir,'proc',ouput_path,'vol_AI',mouseID+'.nii.gz')):
     continue

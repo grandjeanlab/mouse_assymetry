@@ -24,6 +24,16 @@ library(abind)
 #plot
 library(ggpubr)
 library(ggdist)
+library(MetBrewer)
+
+pal2<-met.brewer("Cassatt2",2)
+pal3<-met.brewer("Cassatt2",3)
+pal4<-met.brewer("Cassatt2",4)
+pal5<-met.brewer("Cassatt2",5)
+pal6<-met.brewer("Cassatt2",6)
+pal7<-met.brewer("Cassatt2",7)
+pal12<-met.brewer("Cassatt2",12)
+palc<-met.brewer("Cassatt2",type="continuous")
 
 source('asset/function/ma_func.R')
 ```
@@ -43,6 +53,8 @@ study_name <- unique(study$Study_Name)
 
 # cleaned up table with the ROI names and their corresponding label
 roi_merge <- read_csv('asset/roi_label_clean.csv', col_types = cols())
+#create color palete for ABI
+ABI_pal<-roi_merge %>% select(ABI_struct, HEX) %>% distinct %>% deframe
 
 # path to the data generated with preprocess.qmd
 data_path <- '/project/4180000.34/proc/'
@@ -164,6 +176,7 @@ save(trans_mat,file=file.path('asset','table','trans_mat.RData'))
 ```r
 wt_select<-which(study$Is_Wildtype=="WT")
 study_wt <- study[wt_select,]
+B
 
 load(file.path('asset','table','trans_mat.RData'))
 
@@ -190,8 +203,44 @@ for (i in 1:dim(trans_mat)[2]) {
     
 }
 
+#create a tibble AI_plot where g is AI_hedges_g, x is a repeated seq from 1 to 4, and y is a repeated seq from 1 to 3
+AI_plot <- tibble(
+  g = AI_hedges_g,
+  sign=AI_hedges_sign,
+  x = rep(seq(1, 4), 3),
+  y = rep(seq(1, 3), each = 4)
+)
+
+#in AI_plot, windsorize g at 1 and -1, convert sign=TRUE to 1 and sign=FALSE to 0.5
+AI_plot$g <- pmax(pmin(AI_plot$g, 1), -1)
+AI_plot$sign<-ifelse(AI_plot$sign==TRUE,1,0.5)
+
+
+#make a ggplot geom_tile plot using AI_plot revert the y axis, use the MetBrewer cassatt2 palette
+
+b<-AI_plot %>%  ggplot(aes(x = x, y = -y, fill = g, alpha=sign)) + 
+              geom_tile()+
+              scale_fill_gradientn(colours=palc,limits=c(-1,1))+ 
+              scale_alpha(range=c(0.5,1))+
+              theme_void()
+
+
+ggsave('asset/figure/Fig_affineb.svg',plot = b, device = 'svg',width = 80,height = 80,units = 'mm')
+
+study_wt$AI <- trans_mat[, 5]
+c<-ggplot(study_wt[!is.na(study_wt$Mouse_Sex),],aes(y = Mouse_Sex, x = AI, fill = Mouse_Sex)) +
+  stat_slab(aes(thickness = stat(pdf*n)),scale = 0.7) +
+  stat_dotsinterval(side = "bottom", scale = 0.7, slab_size = NA, point_interval = "mean_qi") +
+  scale_fill_manual(values = pal2) + xlim(-0.1,0.1)+geom_vline(xintercept = 0,linetype="dotted") + 
+  labs(x='Shear index', y='Sex')+theme_light()+
+  theme(text=element_text(size=6),legend.position="none")
+
+
+ggsave('asset/figure/Fig_affinec.svg',plot = c, device = 'svg',width = 80,height = 80,units = 'mm')
+
 
 ```
+
 
 
 # 3. prepare the assets for the analysis
@@ -276,7 +325,7 @@ project2atlas(roi_merge$label[left_select],AI_hedges_g[left_select],AI_hedges_si
 
 AI_hedges_g[right_select] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_right_hedges_g.csv'))
 AI_hedges_g[left_select[left_reorder]]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_left_hedges_g.csv'))
-A
+
 AI_hedges_lower[right_select] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_right_AI_hedges_lower.csv'))
 AI_hedges_lower[left_select[left_reorder]]  %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_left_AI_hedges_lower.csv'))
 AI_hedges_upper[right_select] %>% as_tibble() %>% write_csv(glue('asset/results/{jac_type}_wt_right_AI_hedges_upper.csv'))
@@ -303,44 +352,115 @@ AI_hedge_g_wt %>% as_tibble %>% write_csv(glue('asset/figure/{jac_type}_wt_right
 wt_select<-which(study$Is_Wildtype=="WT")
 study_wt <- study[wt_select,]
 
-# make random groups
-study_wt$rand_group<-NA
-study_wt$rand_group<-sample(1:2,length(study_wt$rand_group),replace=TRUE)
 
 jac_type<-'relative'
 
 #load the AI array
 load(file.path('asset','table',glue('{jac_type}_roi_AI_mat.RData')))
-roi_AI_mat<-roi_AI_mat[wt_select,]
+roi_merge_select<-roi_merge[right_select,]
+roi_AI_mat_select<-roi_AI_mat[wt_select,right_select]
 
 
 #make arrays to store the results
-AI_hedges_g_s1 <- array(NA, dim = c(dim(roi_merge)[1]))
-AI_hedges_g_s2 <- array(NA, dim = c(dim(roi_merge)[1]))
-
-AI_hedges_g_m <- array(NA, dim = c(dim(roi_merge)[1]))
-AI_hedges_g_f <- array(NA, dim = c(dim(roi_merge)[1]))
-
+cor_array<-c()
 
 
 #loop through all ROIs  and do the one sample t-test
-for (i in 1:dim(roi_merge)[1]) {
-  study_wt$AI <- roi_AI_mat[, i]
-    
-    AI_hedges_g_s1[i] <- hedges_g(study_wt$AI[study_wt$rand_group == 1],rep(0,length(study_wt$AI[study_wt$rand_group == 1])))$Hedges_g
-    AI_hedges_g_s2[i] <- hedges_g(study_wt$AI[study_wt$rand_group == 2],rep(0,length(study_wt$AI[study_wt$rand_group == 2])))$Hedges_g
-    
-
-    AI_hedges_g_m[i] <- hedges_g(study_wt$AI[study_wt$Mouse_Sex == 'M'],rep(0,length(study_wt$AI[study_wt$Mouse_Sex == 'M'])))$Hedges_g
-    AI_hedges_g_f[i] <- hedges_g(study_wt$AI[study_wt$Mouse_Sex == 'F'],rep(0,length(study_wt$AI[study_wt$Mouse_Sex == 'F'])))$Hedges_g
-    
+for (j in 1:500) { 
+    # make random groups
+    rand_group<-sample(1:2,dim(roi_AI_mat_select)[1],replace=TRUE)
+    mean_g1<-roi_AI_mat_select[rand_group==1,] %>% apply(MARGIN=2,mean)
+    mean_g2<-roi_AI_mat_select[rand_group==2,] %>% apply(MARGIN=2,mean)
+    # calculate the correlation
+    cor_array[j]<-cor(mean_g1,mean_g2)
 }
 
-plot(AI_hedges_g_s1[right_select],AI_hedges_g_s2[right_select],pch=16,col='red')
-plot(AI_hedges_g_m[right_select],AI_hedges_g_f[right_select],pch=16,col='red')
+# ggplot a histogram of cor_array
+a<-cor_array %>% as_tibble() %>% ggplot(aes(x=cor_array)) + 
+              geom_density(color=pal5[2], fill=pal5[3]) + 
+              geom_vline(xintercept=median(cor_array), color=pal5[2]) + 
+              labs(x='Split group correlation', y='Relative frequency') + 
+              theme_light()
 
-#! reminder to make nice plots for test re-test. 
+ggsave('asset/figure/Fig_WTa.svg',plot = a, device = 'svg',width = 80,height = 80,units = 'mm')
 
+```
+
+## split wild-type into by sex, plot correlation, test for difference
+```r
+
+# select only wt mice
+wt_select<-which(study$Is_Wildtype=="WT")
+study_wt <- study[wt_select,]
+
+jac_type<-'relative'
+
+#load the AI array
+load(file.path('asset','table',glue('{jac_type}_roi_AI_mat.RData')))
+roi_merge_select<-roi_merge[right_select,]
+roi_AI_mat_select<-roi_AI_mat[wt_select,right_select]
+
+
+#make arrays to store the results
+AI_mean_m <- array(NA, dim = c(dim(roi_AI_mat_select)[2]))
+AI_mean_f <- array(NA, dim = c(dim(roi_AI_mat_select)[2]))
+AI_hedges_g <- array(NA, dim = c(dim(roi_AI_mat_select)[2]))
+AI_hedges_lower <- array(NA, dim = c(dim(roi_AI_mat_select)[2]))
+AI_hedges_upper <- array(NA, dim = c(dim(roi_AI_mat_select)[2]))
+AI_hedges_sign <- array(NA, dim = c(dim(roi_AI_mat_select)[2]))
+
+
+#loop through all ROIs  and do the one sample t-test
+for (i in 1:dim(roi_AI_mat_select)[2]) {
+  study_wt$AI <- roi_AI_mat_select[, i]
+    
+    AI_mean_m[i] <- mean(study_wt$AI[study_wt$Mouse_Sex == 'M'], na.rm=TRUE)
+    AI_mean_f[i] <- mean(study_wt$AI[study_wt$Mouse_Sex == 'F'], na.rm=TRUE)
+    AI_g <- hedges_g(study_wt$AI[study_wt$Mouse_Sex == 'M'], study_wt$AI[study_wt$Mouse_Sex == 'F'], na.rm=TRUE)
+    AI_hedges_g[i] <- AI_g$Hedges_g
+    AI_hedges_lower[i] <- AI_g$CI_low
+    AI_hedges_upper[i] <- AI_g$CI_high
+    AI_hedges_sign[i] <- sign(AI_g$CI_high) == sign(AI_g$CI_low)
+
+}
+
+#put in a tibble AI_mean_m, AI_mean_f, AI_sex_hedges_g, roi_merge$ABI_struct[right_select], roi_merge$HEX[right_select]
+df <- tibble(mean_male=AI_mean_m, mean_female=AI_mean_f, roi=roi_merge_select$ABI_struct, hex=roi_merge_select$HEX)
+
+
+#using ggplot2, plot AI_mean_m on x and AI_mean_f on y
+b<- df %>% ggplot(aes(x=AI_mean_m,y=AI_mean_f)) + 
+      geom_point(aes(colour=roi,fill=roi)) + 
+      scale_fill_manual(values=ABI_pal) + 
+      scale_colour_manual(values=ABI_pal) +
+      geom_smooth(method=lm, colour=pal5[3], fill=pal5[2],alpha=0.2) +
+      theme_light() +
+      labs(x='mean AI males', y = 'mean AI females') + 
+      theme(text = element_text(size=6)) 
+
+ggsave('asset/figure/Fig_WTb.svg',plot = b, device = 'svg',width = 80,height = 80,units = 'mm')
+
+project2atlas(roi_merge$label[right_select],AI_hedges_g,AI_hedges_sign, atlas='/project/4180000.34/DSURQE_40micron_labels.nii.gz') %>% writeNifti(glue('asset/nifti/{jac_type}_wt_mf.nii.gz'))
+
+AI_sex<-tibble(roi=roi_merge_select$dsurqe_struct,g=AI_hedges_g,lower=AI_hedges_lower,upper=AI_hedges_upper,sign=AI_hedges_sign)
+AI_sex<-AI_sex[AI_sex$sign==TRUE,]
+
+
+### plot for bed of stria terminalis
+study_wt$AI<-roi_AI_mat_select[,which(roi_merge_select$label==176)]
+
+
+d<-ggplot(study_wt[!is.na(study_wt$Mouse_Sex),],aes(y = Mouse_Sex, x = AI, fill = Mouse_Sex)) +
+  stat_slab(aes(thickness = stat(pdf*n)),scale = 0.7) +
+  stat_dotsinterval(side = "bottom", scale = 0.7, slab_size = NA, point_interval = "mean_qi") +
+  scale_fill_manual(values = pal2) + xlim(-0.1,0.1)+geom_vline(xintercept = 0,linetype="dotted") + 
+  labs(x='Asymmetry Index (R > L)', y='Sex')+ theme_light() + 
+  theme(text=element_text(size=6),legend.position="none")
+
+ggsave('asset/figure/Fig_WTd.svg',plot = d, device = 'svg',width = 80,height = 80,units = 'mm')
+
+
+study_wt[which(!is.na(study_wt$AI) & !is.na(study_wt$Mouse_Sex)),] %>% select(Mouse_Sex) %>% mutate(Mouse_Sex=as.factor(Mouse_Sex)) %>% group_by(Mouse_Sex) %>% summary
 
 ```
 
@@ -373,35 +493,116 @@ roi_AI_mat_select<-roi_AI_mat[wt_select,right_select]
 study_wt$AI<-roi_AI_mat_select[,which(roi_merge_select$label==7)]
 
 
-b<-ggplot(study_wt[!is.na(study_wt$Mouse_Sex),],aes(y = Mouse_Sex, x = AI, fill = Mouse_Sex)) +
+e<-ggplot(study_wt[!is.na(study_wt$Background),],aes(y = Background, x = AI, fill = Background)) +
   stat_slab(aes(thickness = stat(pdf*n)),scale = 0.7) +
   stat_dotsinterval(side = "bottom", scale = 0.7, slab_size = NA, point_interval = "mean_qi") +
-  scale_fill_brewer(palette = "Set2")+ xlim(-0.05,0.05)+geom_vline(xintercept = 0,linetype="dotted") + 
-  labs(x='Asymmetry Index (R > L)', y='Sex')+
+  scale_fill_manual(values = pal4)+ xlim(-0.1,0.1)+geom_vline(xintercept = 0,linetype="dotted") + 
+  labs(x='Asymmetry Index (R > L)', y='Mouse strain')+ theme_light() + 
   theme(text=element_text(size=6),legend.position="none")
 
-c<-ggplot(study_wt[!is.na(study_wt$Background),],aes(y = Background, x = AI, fill = Background)) +
-  stat_slab(aes(thickness = stat(pdf*n)),scale = 0.7) +
-  stat_dotsinterval(side = "bottom", scale = 0.7, slab_size = NA, point_interval = "mean_qi") +
-  scale_fill_brewer(palette = "Set2")+ xlim(-0.05,0.05)+geom_vline(xintercept = 0,linetype="dotted") + 
-  labs(x='Asymmetry Index (R > L)', y='Mouse strain')+
-  theme(text=element_text(size=6),legend.position="none")
-
-d<-ggplot(study_wt[!is.na(study_wt$Mouse_Age_int),], aes(x=Mouse_Age_int, y=AI, color=Mouse_Sex, shape=Mouse_Sex)) +
+f<-ggplot(study_wt[!is.na(study_wt$Mouse_Age_int),], aes(x=Mouse_Age_int, y=AI, color=Mouse_Sex, shape=Mouse_Sex)) +
   geom_point() + 
   geom_smooth(method=lm, se=FALSE, fullrange=TRUE)+
-  ylim(-0.05,0.05)+
-  scale_color_brewer(palette = "Set2")+
+  ylim(-0.1,0.1)+
+  scale_color_manual(values = pal2)+ theme_light() + 
   labs(x="Mouse age [days]", y="Asymmetry Index (R > L)")+
   theme(text=element_text(size=6),legend.position="none")
 
-study_wt[which(!is.na(study_wt$AI) & !is.na(study_wt$Mouse_Sex)),] %>% select(Mouse_Sex) %>% mutate(Mouse_Sex=as.factor(Mouse_Sex)) %>% group_by(Mouse_Sex) %>% summary
+
 study_wt[which(!is.na(study_wt$AI) & !is.na(study_wt$Background)),] %>% select(Background) %>% mutate(Background=as.factor(Background)) %>% group_by(Background) %>% summary
 
+ggsave('asset/figure/Fig_WTe.svg',plot = e, device = 'svg',width = 80,height = 80,units = 'mm')
+ggsave('asset/figure/Fig_WTf.svg',plot = f, device = 'svg',width = 180,height = 80,units = 'mm')
 
-ggsave('asset/figure/Fig1b.svg',plot = b, device = 'svg',width = 80,height = 80,units = 'mm')
-ggsave('asset/figure/Fig1c.svg',plot = c, device = 'svg',width = 80,height = 80,units = 'mm')
-ggsave('asset/figure/Fig1d.svg',plot = d, device = 'svg',width = 180,height = 80,units = 'mm')
+
+```
+### plot isoctx roi as a function of AP axis
+```r
+
+# select only wt mice
+wt_select<-which(study$Is_Wildtype=="WT")
+study_wt <- study[wt_select,]
+
+jac_type<-'relative'
+
+#load the AI array
+load(file.path('asset','table',glue('{jac_type}_roi_AI_mat.RData')))
+roi_merge_select<-roi_merge[right_select,]
+roi_AI_mat_select<-roi_AI_mat[wt_select,right_select]
+
+roi_merge_select <- roi_merge_select %>% add_column(AI = apply(roi_AI_mat_select,2,mean))
+roi_merge_select <- roi_merge_select %>% filter(ABI_struct == 'Isocortex')
+
+#ggplot of AI as a function of cog_y in roi_merge_select
+g <- ggplot(roi_merge_select,aes(x=cog_y,y=AI)) + 
+      geom_point(aes(colour=ABI_struct,fill=ABI_struct)) + 
+      scale_fill_manual(values=ABI_pal) + 
+      scale_colour_manual(values=ABI_pal) +
+      geom_smooth(method=lm, colour=roi_merge_select$HEX[1], fill=roi_merge_select$HEX[1],alpha=0.2) +
+      labs(x='Anterior-Posterior position [mm]', y='Asymmetry Index (R > L)') + 
+      theme_light() + 
+      theme(text=element_text(size=6),legend.position="none")
+
+ggsave('asset/figure/Fig_WTg.svg',plot = g, device = 'svg',width = 80,height = 80,units = 'mm')
+
+
+```
+
+
+### extract the striatum volume for WT animals
+```r
+#select the type of jacobian to use. Absolute are without the 12 parameter transformation regression, relative are with the 12 parameter transformation regression
+jac_type<-'relative'
+#select the striatum
+roi_select<-7 
+#get the list of all AI files geneted by hte preprocess.qmd script
+roi_orig_list <-
+  file.path(data_path,jac_type, 'roi_orig') %>% dir() %>% gsub(".txt", "", .)
+roi_flip_list<-
+  file.path(data_path,jac_type,'roi_flip') %>% dir() %>% gsub(".txt", "", .)
+# select only wt mice
+wt_select<-which(study$Is_Wildtype=="WT")
+study_wt <- study[wt_select,]
+
+#make an array to store the AI values
+roi_orig_mat <- array(NA, dim = c(dim(study_wt)[1]))
+roi_flip_mat <- array(NA, dim = c(dim(study_wt)[1]))
+
+#loop through all subjects and get the AI values for all ROIs
+for (i in 1:dim(study_wt)[1]) {
+  roi_orig_file <- which(roi_orig_list %in% study_wt$Mouse_ID[i])
+  roi_flip_file <- which(roi_flip_list %in% study_wt$Mouse_ID[i])
+  if (length(roi_flip_file) == 1 & length(roi_orig_file) == 1) {
+    roi_orig_mat[i] <-
+      read_table(
+        file.path(
+          data_path,
+          jac_type,
+          'roi_orig',
+          glue('{roi_orig_list[roi_orig_file]}.txt')
+        ),
+        col_names = FALSE,
+        col_types = cols()
+      ) %>%  pivot_longer(everything()) %>% data_extract(value) %>% .[which(roi_merge_select$label==roi_select)]
+     roi_flip_mat[i] <-
+      read_table(
+        file.path(
+          data_path,
+          jac_type,
+          'roi_flip',
+          glue('{roi_flip_list[roi_flip_file]}.txt')
+        ),
+        col_names = FALSE,
+        col_types = cols()
+      ) %>%  pivot_longer(everything()) %>% data_extract(value) %>% .[which(roi_merge_select$label==roi_select)]
+   } 
+  }
+
+median(roi_orig_mat,na.rm = TRUE)) * 6.69
+median(roi_flip_mat,na.rm = TRUE)) * 6.69
+
+
+# median value for the striatum: 6.917022 and 6.903037 
 
 
 ```
@@ -440,11 +641,15 @@ for (j in 1:length(study_name)) {
   if (!any(study$Genotype_Code == Wt_code) | !any(study$Genotype_Code == Tg_code)) {
     next
   }
+  
+  len_wt<-study$Mouse_ID[study$Study_Name == study_name[j] & study$Genotype_Code == Wt_code] %>% length
+  len_tg<-study$Mouse_ID[study$Study_Name == study_name[j] & study$Genotype_Code == Tg_code] %>% length
 
-  contrast_name<-glue('{study_name[j]}_{Wt_code}_n{length(Wt)}_{Tg_code}_n{length(Tg)}')
+  contrast_name<-glue('{study_name[j]}_{Wt_code}_n{len_wt}_{Tg_code}_n{len_tg}')
   contrast_array<-c(contrast_array,contrast_name)
   print('now doing contrast: '+    contrast_name + ' j = ' + j)
   AI_hedges_g_tmp <- c()
+contrast_array %>% as_tibble() %>% write_csv('asset/results/contrast_list.csv')
   AI_hedges_lower_tmp <- c()
   AI_hedges_upper_tmp <- c()
   AI_hedges_sign_tmp <- c()
@@ -495,8 +700,8 @@ for(i in 1:length(contrast_array)){
 contrast<-contrast_array[i]
   if(any(AI_hedges_sign[,i] & !any(is.na(AI_hedges_g[,i])))){
 
-    project2atlas(roi_merge$label[right_select],AI_hedges_g[,i],AI_hedges_sign[,i]) %>%
-      writeNifti(glue('asset/nifti/{jac_type}_{contrast}_wt_right.nii.gz'))
+    project2atlas(roi_merge$label[right_select],AI_hedges_g[,i],rep(TRUE,length(AI_hedges_sign[,i]))) %>%
+      writeNifti(glue('asset/nifti/{jac_type}_{contrast}_right.nii.gz'))
   }
 }
 
@@ -558,6 +763,52 @@ contrast_table %>% write_csv('asset/figure/Sup_table_contrast.csv')
 
 ```
 
+### plot select contrasts
+```r 
+
+jac_type='relative'
+
+#load the AI array
+load(file.path('asset','table',glue('{jac_type}_roi_AI_mat.RData')))
+
+roi_merge_select<-roi_merge[right_select,]
+roi_AI_mat_select<-roi_AI_mat[,right_select]
+
+plot_name <- 'Chd8Basson_str'
+# select the roi: barrel field = 117, striatum = 7
+roi_select <- 7 
+# select contrast and sub_contrast. 
+j <- 10  #Chd8_Nord = 11, Chd8_Basson = 10, 16p11_Golzio = 43 
+k <- 1 
+
+if(is_list(contrast_list[[j]])){
+Wt_code<-contrast_list[[j]][k][[1]][1]  
+Tg_code<-contrast_list[[j]][k][[1]][2]
+}else{
+Wt_code<-contrast_list[[j]][1]  
+Tg_code<-contrast_list[[j]][2]
+}
+
+
+study$AI <- roi_AI_mat_select[, roi_select]
+
+study_sub <- study[study$Study_Name == study_name[j], ]
+Wt <- study_sub$AI[study_sub$Genotype_Code == Wt_code]
+Tg <- study_sub$AI[study_sub$Genotype_Code == Tg_code]
+
+b <- tibble(AI = c(Wt,Tg), Genotype = c(rep('Wt',length(Wt)),rep('Tg',length(Tg)))) %>% 
+      ggplot(aes(y = Genotype, x = AI, fill = Genotype)) +
+      stat_slab(aes(thickness = stat(pdf*n)),scale = 0.7) +
+      stat_dotsinterval(side = "bottom", scale = 0.7, slab_size = NA, point_interval = "mean_qi") +
+      scale_fill_manual(values = pal2)+ xlim(-0.1,0.1)+geom_vline(xintercept = 0,linetype="dotted") + 
+      labs(x='Asymmetry Index (R > L)', y='Genotype')+ theme_light() + 
+      theme(text=element_text(size=6),legend.position="none") 
+ggsave(glue('asset/figure/Fig_TG_{plot_name}.svg'), plot = b, device = 'svg',width = 80,height = 80,units = 'mm')
+
+
+
+```
+
 ### cluster the effect size
 
 ```r
@@ -589,6 +840,8 @@ e<-fviz_gap_stat(gap_stat)
 
 
 km <- kmeans(AI_hedges_g[row_keep,], centers = 3, nstart = 25)
+# save the cluster vector 
+tibble(cluster = unlist(km$cluster),contrast=names(km$cluster)) %>% write_tsv('asset/table/cluster.tsv')
 
 AI_cluster<-AI_hedges_g[row_keep,]
 
@@ -603,29 +856,210 @@ AI_cluster$contrast<-glue('{AI_cluster$cluster}_{AI_cluster$contrast}')
 
 AI_cluster<-AI_cluster %>% pivot_longer(cols = -c(cluster,contrast),names_to = 'roi',values_to = 'g')
 
-AI_cluster$roi<-as.factor(AI_cluster$roi)
+#merge AI_cluster with roi_merge_select using roi and dsurqe_struct as keys 
+AI_cluster<-left_join(AI_cluster, roi_merge_select, by = c('roi' = 'dsurqe_struct'))
+
 AI_cluster$contrast<-as.factor(AI_cluster$contrast)
+AI_cluster <- AI_cluster %>% arrange(match(ABI_struct, c("OLF", "Isocortex", "HPF","CTXsp","STR","TH","HY","MB","HB","CB")))
+AI_cluster <- AI_cluster %>% mutate(roi = glue('{ABI_struct}_{roi}'))
 
 #ggplot2 raster plot of AI_cluster, x-axis is ROI and y-axis is contrast 
-f<-ggplot(AI_cluster, aes(x = roi, y = contrast, fill = g)) + 
-  geom_tile() + 
-  scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0, limits = c(-1,1)) + 
-  theme_classic() + 
-  theme(axis.title.x = element_blank()) + 
-  theme(axis.title.y = element_blank()) + 
-  theme(panel.grid.major = element_blank()) + 
-  theme(panel.grid.minor = element_blank()) + 
-  theme(panel.border = element_blank()) + 
-  theme(panel.background = element_blank()) + 
-  theme(plot.title = element_blank()) + 
-  theme(axis.text.x = element_blank()) 
+f <- ggplot(AI_cluster, aes(x = roi, y = contrast, fill = g)) + 
+      geom_tile() +
+      theme_light() + 
+      scale_fill_gradientn(colours = palc, limits = c(-1,1)) + 
+      theme(axis.title.x = element_blank()) + 
+      theme(axis.title.y = element_blank()) + 
+      theme(panel.grid.major = element_blank()) + 
+      theme(panel.grid.minor = element_blank()) + 
+      theme(panel.border = element_blank()) + 
+      theme(panel.background = element_blank()) + 
+      theme(plot.title = element_blank()) +
+      theme(text=element_text(size = 6)) +
+      theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+      scale_x_discrete(limits = unique(AI_cluster$roi))  
 
-
-ggsave('asset/figure/Fig2d.svg',plot = d, device = 'svg',width = 180,height = 80,units = 'mm')
-ggsave('asset/figure/Fig2e.svg',plot = e, device = 'svg',width = 180,height = 80,units = 'mm')
-ggsave('asset/figure/Fig2f.svg',plot = f, device = 'svg',width = 180,height = 80,units = 'mm')
+ggsave('asset/figure/Fig_Clusterd.svg',plot = d, device = 'svg',width = 180,height = 80,units = 'mm')
+ggsave('asset/figure/Fig_Clustere.svg',plot = e, device = 'svg',width = 180,height = 80,units = 'mm')
+ggsave('asset/figure/Fig_Clusterf.svg',plot = f, device = 'svg',width = 280,height = 280,units = 'mm')
 
 ```
+
+### make voxelwise representations of the cluster
+```r 
+
+cluster_table <- read_tsv('asset/table/cluster.tsv', col_types = cols())
+
+jac_type='relative'
+
+#load the AI array
+load(file.path('asset','table',glue('{jac_type}_roi_AI_mat.RData')))
+roi_merge_select<-roi_merge[right_select,]
+roi_AI_mat_select<-roi_AI_mat[,right_select]
+
+contrast_array<-c()
+
+roi_AI_mat_select_c1_wt<-c()
+roi_AI_mat_select_c1_tg<-c()
+
+roi_AI_mat_select_c2_wt<-c()
+roi_AI_mat_select_c2_tg<-c()
+
+roi_AI_mat_select_c3_wt<-c()
+roi_AI_mat_select_c3_tg<-c()
+
+AI_hedges_g_c1 <- c() 
+AI_hedges_lower_c1 <- c()
+AI_hedges_upper_c1 <- c()
+AI_hedges_sign_c1 <- c()
+
+AI_hedges_g_c2 <- c()
+AI_hedges_lower_c2 <- c()
+AI_hedges_upper_c2 <- c()
+AI_hedges_sign_c2 <- c()
+
+AI_hedges_g_c3 <- c()
+AI_hedges_lower_c3 <- c()
+AI_hedges_upper_c3 <- c()
+AI_hedges_sign_c3 <- c()
+
+contrast_array<-c()
+for (j in 1:length(study_name)) {
+  if(length(contrast_list[[j]])==0){next}
+  if(is_list(contrast_list[[j]])){cl<-1:length(contrast_list[[j]])}else{cl<-1}
+    
+  for(k in cl){  
+  if(is_list(contrast_list[[j]])){
+    Wt_code<-contrast_list[[j]][k][[1]][1]  
+    Tg_code<-contrast_list[[j]][k][[1]][2]
+  }else{
+    Wt_code<-contrast_list[[j]][1]  
+    Tg_code<-contrast_list[[j]][2]
+  }
+
+  if (!any(study$Genotype_Code == Wt_code) | !any(study$Genotype_Code == Tg_code)) {
+    next
+  }
+  
+  len_wt<-study$Mouse_ID[study$Study_Name == study_name[j] & study$Genotype_Code == Wt_code] %>% length
+  len_tg<-study$Mouse_ID[study$Study_Name == study_name[j] & study$Genotype_Code == Tg_code] %>% length
+
+  contrast_name<-glue('{study_name[j]}_{Wt_code}_n{len_wt}_{Tg_code}_n{len_tg}')
+  contrast_array<-c(contrast_array,contrast_name)
+  print('now doing contrast: '+    contrast_name + ' j = ' + j)
+
+
+  get_cluster <- cluster_table$cluster[which(cluster_table$contrast == contrast_name)]
+
+  if(length(get_cluster) !=1 ) {next}
+
+  Wt <- which(study$Genotype_Code == Wt_code & study$Study_Name == study_name[j])
+  Tg <- which(study$Genotype_Code == Tg_code & study$Study_Name == study_name[j])
+
+  if(get_cluster == 1){
+    roi_AI_mat_select_c1_wt<-abind(roi_AI_mat_select_c1_wt,roi_AI_mat_select[Wt,], along=1)
+    roi_AI_mat_select_c1_tg<-abind(roi_AI_mat_select_c1_tg,roi_AI_mat_select[Tg,], along=1)
+  }
+  if(get_cluster == 2){
+    roi_AI_mat_select_c2_wt<-abind(roi_AI_mat_select_c2_wt,roi_AI_mat_select[Wt,], along=1)
+    roi_AI_mat_select_c2_tg<-abind(roi_AI_mat_select_c2_tg,roi_AI_mat_select[Tg,], along=1)
+  }
+  if(get_cluster == 3){
+    roi_AI_mat_select_c3_wt<-abind(roi_AI_mat_select_c3_wt,roi_AI_mat_select[Wt,], along=1)
+    roi_AI_mat_select_c3_tg<-abind(roi_AI_mat_select_c3_tg,roi_AI_mat_select[Tg,], along=1)
+  }
+
+    
+  }
+}
+
+for(i in  1:dim(roi_merge_select)[1]) {
+
+    AI_g <- hedges_g(roi_AI_mat_select_c1_wt[,i],roi_AI_mat_select_c1_tg, na.rm=TRUE)
+    AI_hedges_g_c1[i] <- AI_g$Hedges_g
+    AI_hedges_lower_c1[i] <- AI_g$CI_low
+    AI_hedges_upper_c1[i] <- AI_g$CI_high
+    AI_hedges_sign_c1[i] <- sign(AI_g$CI_high) == sign(AI_g$CI_low)
+
+    AI_g <- hedges_g(roi_AI_mat_select_c2_wt[,i],roi_AI_mat_select_c2_tg, na.rm=TRUE)
+    AI_hedges_g_c2[i] <- AI_g$Hedges_g
+    AI_hedges_lower_c2[i] <- AI_g$CI_low
+    AI_hedges_upper_c2[i] <- AI_g$CI_high
+    AI_hedges_sign_c2[i] <- sign(AI_g$CI_high) == sign(AI_g$CI_low)
+
+    AI_g <- hedges_g(roi_AI_mat_select_c3_wt[,i],roi_AI_mat_select_c3_tg, na.rm=TRUE)
+    AI_hedges_g_c3[i] <- AI_g$Hedges_g
+    AI_hedges_lower_c3[i] <- AI_g$CI_low
+    AI_hedges_upper_c3[i] <- AI_g$CI_high
+    AI_hedges_sign_c3[i] <- sign(AI_g$CI_high) == sign(AI_g$CI_low)
+}
+
+
+
+tibble(c1_wt = dim(roi_AI_mat_select_c1_wt)[1], 
+        c1_tg = dim(roi_AI_mat_select_c1_tg)[1],
+        c2_wt = dim(roi_AI_mat_select_c2_wt)[1],
+        c2_tg = dim(roi_AI_mat_select_c2_tg)[1],
+        c3_wt = dim(roi_AI_mat_select_c3_wt)[1],
+        c3_tg = dim(roi_AI_mat_select_c3_tg)[1])  %>% write_csv('asset/figure/cluster_n.csv')
+
+#keep only the first column in AI_hedges_g, AI_hedges_lower, AI_hedges_upper, AI_hedges_sign, only keep rows for each where AI_hedges_sign is 1
+AI_hedge_g_cluster1<-tibble(roi=roi_merge_select$dsurqe_struct[AI_hedges_sign_c1==1],g=AI_hedges_g_c1[AI_hedges_sign_c1==1], lower=AI_hedges_lower_c1[AI_hedges_sign_c1==1], upper=AI_hedges_upper_c1[AI_hedges_sign_c1==1])
+AI_hedge_g_cluster2<-tibble(roi=roi_merge_select$dsurqe_struct[AI_hedges_sign_c2==1],g=AI_hedges_g_c2[AI_hedges_sign_c2==1], lower=AI_hedges_lower_c2[AI_hedges_sign_c2==1], upper=AI_hedges_upper_c2[AI_hedges_sign_c2==1])
+AI_hedge_g_cluster3<-tibble(roi=roi_merge_select$dsurqe_struct[AI_hedges_sign_c3==1],g=AI_hedges_g_c3[AI_hedges_sign_c3==1], lower=AI_hedges_lower_c3[AI_hedges_sign_c3==1], upper=AI_hedges_upper_c3[AI_hedges_sign_c3==1])
+
+
+AI_hedge_g_cluster1 %>% write_csv(glue('asset/figure/cluster1_summary.csv'))
+AI_hedge_g_cluster2 %>% write_csv(glue('asset/figure/cluster2_summary.csv'))
+AI_hedge_g_cluster3 %>% write_csv(glue('asset/figure/cluster3_summary.csv'))
+
+
+project2atlas(roi_merge_select$label,AI_hedges_g_c1,AI_hedges_sign_c1) %>%
+      writeNifti(glue('asset/nifti/{jac_type}_Cluster1_right.nii.gz'))
+project2atlas(roi_merge_select$label,AI_hedges_g_c2,AI_hedges_sign_c2) %>%
+      writeNifti(glue('asset/nifti/{jac_type}_Cluster2_right.nii.gz'))
+project2atlas(roi_merge_select$label,AI_hedges_g_c3,AI_hedges_sign_c3) %>%
+      writeNifti(glue('asset/nifti/{jac_type}_Cluster3_wt_right.nii.gz'))
+
+
+
+roi_select <- 117
+df <- tibble(cluster = c(rep(1,dim(roi_AI_mat_select_c1_wt)[1]),
+                         rep(1, dim(roi_AI_mat_select_c1_tg)[1]),
+                         rep(2,dim(roi_AI_mat_select_c2_wt)[1]),
+                         rep(2, dim(roi_AI_mat_select_c2_tg)[1]),
+                         rep(3,dim(roi_AI_mat_select_c3_wt)[1]),
+                         rep(3, dim(roi_AI_mat_select_c3_tg)[1])),
+              genotype = c(rep('WT', dim(roi_AI_mat_select_c1_wt)[1]),
+                           rep('TG', dim(roi_AI_mat_select_c1_tg)[1]),
+                           rep('WT', dim(roi_AI_mat_select_c2_wt)[1]),
+                           rep('TG', dim(roi_AI_mat_select_c2_tg)[1]),
+                           rep('WT', dim(roi_AI_mat_select_c3_wt)[1]),
+                           rep('TG', dim(roi_AI_mat_select_c3_tg)[1])),
+              AI = c(roi_AI_mat_select_c1_wt[,roi_select], roi_AI_mat_select_c1_tg[,roi_select],
+                     roi_AI_mat_select_c2_wt[,roi_select], roi_AI_mat_select_c2_tg[,roi_select],
+                     roi_AI_mat_select_c3_wt[,roi_select], roi_AI_mat_select_c3_tg[,roi_select])) %>% 
+                     mutate(cluster_genotype = glue('{cluster}_{genotype}'))
+
+
+
+g<- ggplot(df,aes(y = cluster_genotype, x = AI, fill = genotype)) +
+    stat_slab(aes(thickness = stat(pdf*n)),scale = 0.7) +
+    stat_dotsinterval(side = "bottom", scale = 0.7, slab_size = NA, point_interval = "mean_qi") +
+    scale_fill_manual(values = pal2)+ xlim(-0.1,0.1)+geom_vline(xintercept = 0,linetype="dotted") + 
+    labs(x='Asymmetry Index (R > L)', y='Cluster')+ theme_light() + 
+    theme(text=element_text(size=6),legend.position="none")
+
+
+ ggsave('asset/figure/Fig_Cluster_bf.svg',plot = g, device = 'svg',width = 80,height = 80,units = 'mm')
+
+
+```
+
+
+
+
+####   maybe ditch this part of the analysis??
 
 ### estimate effect size per Ellegood cluster
 ```r
