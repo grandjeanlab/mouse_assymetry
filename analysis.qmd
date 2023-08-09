@@ -176,7 +176,6 @@ save(trans_mat,file=file.path('asset','table','trans_mat.RData'))
 ```r
 wt_select<-which(study$Is_Wildtype=="WT")
 study_wt <- study[wt_select,]
-B
 
 load(file.path('asset','table','trans_mat.RData'))
 
@@ -194,8 +193,11 @@ AI_hedges_sign <-
 #loop through all ROIs  and do the one sample t-test
 for (i in 1:dim(trans_mat)[2]) {
   study_wt$AI <- trans_mat[, i]
+
+#account for the fact that scale affine matrix elements are the voxel resolution 
+  if(i %in% c(1,6,11)){g_comp = 1}else{g_comp=0}
   
-    AI_g <- hedges_g(study_wt$AI[!is.na(study_wt$AI)],rep(0,length(study_wt$AI[!is.na(study_wt$AI)])))
+    AI_g <- hedges_g(study_wt$AI[!is.na(study_wt$AI)],rep(g_comp,length(study_wt$AI[!is.na(study_wt$AI)])))
     AI_hedges_g[i] <- AI_g$Hedges_g
     AI_hedges_lower[i] <- AI_g$CI_low
     AI_hedges_upper[i] <- AI_g$CI_high
@@ -220,7 +222,7 @@ AI_plot$sign<-ifelse(AI_plot$sign==TRUE,1,0.5)
 
 b<-AI_plot %>%  ggplot(aes(x = x, y = -y, fill = g, alpha=sign)) + 
               geom_tile()+
-              scale_fill_gradientn(colours=palc,limits=c(-1,1))+ 
+              scale_fill_gradientn(colours=palc,limits=c(-0.2,0.2))+ 
               scale_alpha(range=c(0.5,1))+
               theme_void()
 
