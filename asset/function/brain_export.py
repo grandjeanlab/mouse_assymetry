@@ -1,8 +1,8 @@
-template='DSURQE_40micron_brain'
-overlay='/home/gjoanes/code/mouse_assymetry/asset/nifti/absolute_Cluster3_wt_right.nii.gz'
+template='/home/gjoanes/code/mouse_assymetry/asset/DSURQE_40micron_brain.nii.gz'
+overlay='/home/gjoanes/code/mouse_assymetry/asset/nifti/relative_Cluster2_right.nii.gz'
 outputdir='/home/gjoanes/code/mouse_assymetry/asset/figure/'
-filename='Fig3c_cluster3'
-color='viridis'
+filename='Fig_Cluster_2_vox'
+color='cassatt2'
 
 import gl
 
@@ -11,7 +11,7 @@ gl.loadimage(template)
 gl.minmax(0, 500, 1500)
 gl.overlayload(overlay)
 gl.overlayloadsmooth(1)
-gl.minmax(1, -0.15, 0.15)
+gl.minmax(1, -0.5, 0.5)
 gl.colorname (1,color)
 gl.colorbarposition(0)
 gl.shadername('Standard')
